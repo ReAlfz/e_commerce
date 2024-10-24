@@ -8,7 +8,8 @@ class CustomGridViewWidget extends StatelessWidget {
   final List<ProductModel> list;
   final Function(int) onTap;
 
-  const CustomGridViewWidget({super.key, required this.list, required this.onTap});
+  const CustomGridViewWidget(
+      {super.key, required this.list, required this.onTap});
 
   @override
   Widget build(BuildContext context) {

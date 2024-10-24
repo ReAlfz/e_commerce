@@ -7,8 +7,14 @@ class ProductModel {
   final String title;
   final String description;
   final List<String> images;
+  final String category;
   final int stock;
   final int price;
+  bool favorite;
+  final double rating;
+  final int totalReview;
+  final double goodReview;
+  final int numberChat;
 
   ProductModel({
     required this.productId,
@@ -16,8 +22,14 @@ class ProductModel {
     this.variantSwitch,
     required this.title,
     required this.description,
+    required this.category,
     required this.stock,
+    required this.favorite,
     required this.price,
     required this.images,
+    required this.goodReview,
+    required this.numberChat,
+    required this.rating,
+    required this.totalReview,
   });
 }

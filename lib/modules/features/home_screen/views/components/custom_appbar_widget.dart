@@ -1,10 +1,11 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
-import 'package:e_commerce/modules/features/home_screen/controllers/flashsale_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class FlashSaleAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const FlashSaleAppBar({super.key});
+class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final VoidCallback onTap;
+  const CustomAppBar({super.key, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class FlashSaleAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: MainColor.white,
       surfaceTintColor: MainColor.white,
       title: Text(
-        'Flash Sale',
+        title,
         style: TextStyle(
           fontSize: 20.sp,
           color: MainColor.black,
@@ -22,7 +23,7 @@ class FlashSaleAppBar extends StatelessWidget implements PreferredSizeWidget {
       ),
       automaticallyImplyLeading: false,
       leading: GestureDetector(
-        onTap: FlashSaleController.to.onBack,
+        onTap: onTap,
         child: Icon(
           Icons.arrow_back_ios_new_rounded,
           size: 20.r,

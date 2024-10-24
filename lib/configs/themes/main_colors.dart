@@ -5,6 +5,7 @@ class MainColor {
 
   static const Color white = Color(0xffffffff);
   static const Color black = Color(0xff000000);
+  static const Color blackLight = Color(0xff333333);
   static const Color primary = Color(0xffc3e703);
   static const Color secondary = Color(0xff96d1c7);
   static const Color secondaryLight = Color(0xffD4ECE8);

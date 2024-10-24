@@ -14,9 +14,16 @@ class HomeController extends GetxController {
     super.onInit();
   }
 
+  void toCategory() => Get.toNamed(MainRoute.category);
   void toFlashSale() => Get.toNamed(MainRoute.flashSaleDetail);
+
   void toDetail(int index) {
     final data = listHome[index];
     Get.toNamed(MainRoute.detailProduct, arguments: data);
+  }
+
+  void toFilterCategory(int index) {
+    final data = Dataset.catalog[index].title;
+    Get.toNamed(MainRoute.categoryList, arguments: data);
   }
 }

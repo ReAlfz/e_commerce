@@ -1,9 +1,12 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/modules/features/filter_list_category_view/controllers/filter_list_category_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
-  const AppBarWidget({super.key});
+class CategoryAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
+  final String title;
+  final ValueChanged<String>? onChange;
+  const CategoryAppbarWidget({super.key, required this.title, this.onChange});
 
   @override
   Widget build(BuildContext context) {
@@ -21,31 +24,31 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  'Cart',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    color: MainColor.black,
-                    fontFamily: 'sf bold',
+                GestureDetector(
+                  onTap: FilterListCategoryController.to.onBack,
+                  child: Icon(
+                    Icons.arrow_back_ios_new_rounded,
+                    size: 20.r,
+                    color: MainColor.darkGrey,
                   ),
                 ),
 
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    padding: EdgeInsets.all(10.r),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.more_horiz,
-                      size: 20,
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    title,
+                    style: TextStyle(
+                      fontSize: 20.sp,
+                      color: MainColor.black,
+                      fontFamily: 'sf bold',
                     ),
                   ),
                 ),
+
+                const SizedBox(),
               ],
             ),
 
@@ -54,6 +57,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
             SizedBox(
               height: 40.h,
               child: TextField(
+                onChanged: onChange,
                 style: TextStyle(
                   fontSize: 14.sp,
                 ),
@@ -87,5 +91,5 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(0.175.sh);
+  Size get preferredSize => Size.fromHeight(0.155.sh);
 }

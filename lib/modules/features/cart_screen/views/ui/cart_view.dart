@@ -1,9 +1,8 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/modules/features/cart_screen/views/components/all_select_widget.dart';
-import 'package:e_commerce/modules/features/cart_screen/views/components/appbar_widget.dart';
+import 'package:e_commerce/modules/features/cart_screen/views/components/cart_appbar_widget.dart';
 import 'package:e_commerce/modules/features/cart_screen/views/components/list_cart_widget.dart';
 import 'package:e_commerce/shared/widgets/custom_button.dart';
-import 'package:e_commerce/shared/widgets/custom_checkbox_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,7 +13,7 @@ class CartView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[200],
-      appBar: const AppBarWidget(),
+      appBar: const CartAppBarWidget(),
       body: Container(
         height: 1.sh,
         width: 1.sw,

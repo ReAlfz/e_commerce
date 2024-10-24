@@ -4,8 +4,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class QuantityWidget extends StatelessWidget {
   final int quantity;
+  final VoidCallback onIncrement;
+  final VoidCallback onDecrement;
 
-  const QuantityWidget({super.key, required this.quantity});
+  const QuantityWidget({super.key, required this.quantity, required this.onIncrement, required this.onDecrement});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class QuantityWidget extends StatelessWidget {
               color: MainColor.grey,
               shape: const CircleBorder(),
               child: InkWell(
-                onTap: () {},
+                onTap: onDecrement,
                 child: Padding(
                   padding: EdgeInsets.all(5.r),
                   child: Icon(
@@ -57,7 +59,7 @@ class QuantityWidget extends StatelessWidget {
               color: MainColor.grey,
               shape: const CircleBorder(),
               child: InkWell(
-                onTap: () {},
+                onTap: onIncrement,
                 child: Padding(
                   padding: EdgeInsets.all(5.r),
                   child: Icon(

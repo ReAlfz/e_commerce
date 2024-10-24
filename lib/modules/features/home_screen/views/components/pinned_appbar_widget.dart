@@ -16,7 +16,7 @@ class PinnedAppbarWidget extends StatelessWidget {
       backgroundColor: MainColor.white,
       centerTitle: true,
       title: Padding(
-        padding: EdgeInsets.only(top: 16.r),
+        padding: EdgeInsets.only(top: 8.r, bottom: 8.r),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
