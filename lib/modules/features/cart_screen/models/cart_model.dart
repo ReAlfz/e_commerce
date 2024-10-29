@@ -1,3 +1,5 @@
+import 'package:e_commerce/modules/global_models/product_model.dart';
+
 class CartModel {
   final int productId;
   final String? variantColor;
@@ -5,6 +7,7 @@ class CartModel {
   final String title;
   final String description;
   final String images;
+  final ProductModel product;
   int quantity;
   int price;
 
@@ -15,6 +18,7 @@ class CartModel {
     required this.price,
     required this.quantity,
     required this.images,
+    required this.product,
     this.variantSwitch,
     this.variantColor,
   });

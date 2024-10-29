@@ -31,89 +31,92 @@ class ListCartWidget extends StatelessWidget {
                   CartController.to.cartList.refresh();
                 },
               ),
-            ]),
-            child: Container(
-              margin: EdgeInsets.symmetric(
-                vertical: 8.h,
-              ),
-              height: 90.h,
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Obx(
-                    () => CustomCheckBoxWidget(
-                      isChecked: CartController.to.checkItems[index],
-                      onTap: (value) => CartController.to.checkItemList(index),
+            ],),
+            child: GestureDetector(
+              onTap: () => CartController.to.toDetail(index),
+              child: Container(
+                margin: EdgeInsets.symmetric(
+                  vertical: 8.h,
+                ),
+                height: 90.h,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Obx(
+                      () => CustomCheckBoxWidget(
+                        isChecked: CartController.to.checkItems[index],
+                        onTap: (value) => CartController.to.checkItemList(index),
+                      ),
                     ),
-                  ),
-                  5.horizontalSpace,
-                  Container(
-                    width: 90.w,
-                    height: 70.h,
-                    padding: EdgeInsets.all(8.r),
-                    margin: EdgeInsets.symmetric(horizontal: 8.w),
-                    decoration: BoxDecoration(
-                      color: MainColor.grey,
-                      borderRadius: BorderRadius.circular(8.r),
+                    5.horizontalSpace,
+                    Container(
+                      width: 90.w,
+                      height: 70.h,
+                      padding: EdgeInsets.all(8.r),
+                      margin: EdgeInsets.symmetric(horizontal: 8.w),
+                      decoration: BoxDecoration(
+                        color: MainColor.grey,
+                        borderRadius: BorderRadius.circular(8.r),
+                      ),
+                      child: Image.asset(
+                        data.images,
+                        fit: BoxFit.scaleDown,
+                      ),
                     ),
-                    child: Image.asset(
-                      data.images,
-                      fit: BoxFit.scaleDown,
-                    ),
-                  ),
-                  5.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.only(top: 16.h),
-                          child: Text(
-                            data.title,
-                            softWrap: true,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            style: TextStyle(
-                                fontSize: 13.sp, fontFamily: 'sf reguler'),
+                    5.horizontalSpace,
+                    Expanded(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: EdgeInsets.only(top: 16.h),
+                            child: Text(
+                              data.title,
+                              softWrap: true,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
+                              style: TextStyle(
+                                  fontSize: 13.sp, fontFamily: 'sf reguler'),
+                            ),
                           ),
-                        ),
-                        Column(
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  NumberFormat.currency(
-                                    locale: 'id',
-                                    symbol: 'Rp ',
-                                    decimalDigits: 0,
-                                  ).format(data.price),
-                                  style: TextStyle(
-                                    fontSize: 12.sp,
-                                    fontFamily: 'sf semi-bold',
+                          Column(
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    NumberFormat.currency(
+                                      locale: 'id',
+                                      symbol: 'Rp ',
+                                      decimalDigits: 0,
+                                    ).format(data.price),
+                                    style: TextStyle(
+                                      fontSize: 12.sp,
+                                      fontFamily: 'sf semi-bold',
+                                    ),
                                   ),
-                                ),
-                                QuantityWidget(
-                                  quantity: CartController
-                                      .to.cartList[index].quantity,
-                                  onIncrement: () =>
-                                      CartController.to.onIncrement(index),
-                                  onDecrement: () =>
-                                      CartController.to.onDecrement(index),
-                                ),
-                              ],
-                            ),
-                            Divider(
-                              color: MainColor.darkGrey,
-                              thickness: 0.8,
-                            ),
-                          ],
-                        )
-                      ],
+                                  QuantityWidget(
+                                    quantity: CartController
+                                        .to.cartList[index].quantity,
+                                    onIncrement: () =>
+                                        CartController.to.onIncrement(index),
+                                    onDecrement: () =>
+                                        CartController.to.onDecrement(index),
+                                  ),
+                                ],
+                              ),
+                              const Divider(
+                                color: MainColor.darkGrey,
+                                thickness: 0.8,
+                              ),
+                            ],
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           );

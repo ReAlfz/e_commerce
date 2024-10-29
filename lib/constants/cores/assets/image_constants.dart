@@ -7,4 +7,6 @@ class ImageConstants {
   static const String mouseCatalog = 'assets/images/catalog/mouse.png';
   static const String monitorCatalog = 'assets/images/catalog/monitor.png';
   static const String chairCatalog = 'assets/images/catalog/chair.png';
+
+  static const String bgImage = 'assets/images/bg_profile.png';
 }

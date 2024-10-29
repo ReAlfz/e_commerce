@@ -16,6 +16,8 @@ class HiveService extends GetxService{
   }
 
   static List<ProductModel>? getList() {
-    return list.get('my_list');
+    var dynamicList = list.get('my_list', defaultValue: []);
+    if (dynamicList is List) return dynamicList.map((item) => item as ProductModel).toList();
+    return [];
   }
 }

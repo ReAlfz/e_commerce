@@ -3,18 +3,18 @@ import 'package:e_commerce/modules/features/filter_list_category_view/controller
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CategoryAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
+class CategoryAppbarWidget extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final ValueChanged<String>? onChange;
+
   const CategoryAppbarWidget({super.key, required this.title, this.onChange});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.fromLTRB(
-          16.w, 16.r, 16.w, 0,
-        ),
+        padding: EdgeInsets.fromLTRB(16.w, 16.r, 16.w, 0),
         decoration: BoxDecoration(
             color: MainColor.white,
             borderRadius: BorderRadius.vertical(
@@ -23,22 +23,21 @@ class CategoryAppbarWidget extends StatelessWidget implements PreferredSizeWidge
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: FilterListCategoryController.to.onBack,
-                  child: Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 20.r,
-                    color: MainColor.darkGrey,
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 8.w),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  GestureDetector(
+                    onTap: FilterListCategoryController.to.onBack,
+                    child: Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 20.r,
+                      color: MainColor.darkGrey,
+                    ),
                   ),
-                ),
-
-                Align(
-                  alignment: Alignment.center,
-                  child: Text(
+                  Text(
                     title,
                     style: TextStyle(
                       fontSize: 20.sp,
@@ -46,14 +45,11 @@ class CategoryAppbarWidget extends StatelessWidget implements PreferredSizeWidge
                       fontFamily: 'sf bold',
                     ),
                   ),
-                ),
-
-                const SizedBox(),
-              ],
+                  SizedBox(width: 20.r),
+                ],
+              ),
             ),
-
             16.verticalSpace,
-
             SizedBox(
               height: 40.h,
               child: TextField(

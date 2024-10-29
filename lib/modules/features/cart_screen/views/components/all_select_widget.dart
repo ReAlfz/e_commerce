@@ -10,38 +10,20 @@ class AllSelectWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          children: [
-            Obx(
-              () => CustomCheckBoxWidget(
-                onTap: (value) => CartController.to.checkAllItem(),
-                isChecked: CartController.to.selectAll.value,
-              ),
-            ),
-            10.horizontalSpace,
-            Text(
-              'Select All',
-              style: TextStyle(
-                fontSize: 14.sp,
-                fontFamily: 'sf medium',
-              ),
-            ),
-          ],
+        Obx(
+          () => CustomCheckBoxWidget(
+            onTap: (value) => CartController.to.checkAllItem(),
+            isChecked: CartController.to.selectAll.value,
+          ),
         ),
-        Row(
-          children: [
-            const Icon(
-              size: 21,
-              Icons.cloud_upload_outlined,
-            ),
-            10.horizontalSpace,
-            const Icon(
-              size: 21,
-              Icons.edit_outlined,
-            ),
-          ],
+        10.horizontalSpace,
+        Text(
+          'Select All',
+          style: TextStyle(
+            fontSize: 14.sp,
+            fontFamily: 'sf medium',
+          ),
         ),
       ],
     );

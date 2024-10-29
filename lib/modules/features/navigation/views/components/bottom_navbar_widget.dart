@@ -4,8 +4,8 @@ import 'package:e_commerce/modules/features/navigation/views/components/item_nav
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class BottomNavBar extends StatelessWidget {
-  const BottomNavBar({super.key});
+class BottomNavBarWidget extends StatelessWidget {
+  const BottomNavBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -33,10 +33,10 @@ class BottomNavBar extends StatelessWidget {
             ),
             ItemNavbar(
               onTap: () => NavigationController.to.changePages(2),
-              filledIcon: Icons.shopping_cart,
-              icon: Icons.shopping_cart_outlined,
+              filledIcon: Icons.receipt_long,
+              icon: Icons.receipt_long_outlined,
               index: 2,
-              title: 'Cart',
+              title: 'Transaction',
             ),
             ItemNavbar(
               onTap: () => NavigationController.to.changePages(3),

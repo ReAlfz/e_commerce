@@ -11,27 +11,31 @@ class FilterListCategoryView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: MainColor.grey,
-      appBar: CategoryAppbarWidget(
-        title: FilterListCategoryController.to.title,
-        onChange: (value) => FilterListCategoryController.to.filtered(value),
-      ),
-      body: Obx(
-        () => Container(
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: MainColor.grey,
+        appBar: CategoryAppbarWidget(
+          title: FilterListCategoryController.to.title,
+          onChange: (value) => FilterListCategoryController.to.filtered(value),
+        ),
+        body: Container(
           height: 1.sh,
           width: 1.sw,
           margin: EdgeInsets.only(top: 8.r),
-          padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 16.h),
+          padding: EdgeInsets.fromLTRB(8.w, 24.h, 8.w, 16.h),
           decoration: BoxDecoration(
             color: MainColor.white,
             borderRadius: BorderRadius.vertical(
               top: Radius.circular(25.r),
             ),
           ),
-          child: CustomGridViewWidget(
-            list: FilterListCategoryController.to.filteredList,
-            onTap: FilterListCategoryController.to.toDetail,
+          child: Obx(
+            () => CustomGridViewWidget(
+              aspectRatio: 0.6,
+              list: FilterListCategoryController.to.filteredList,
+              onTap: FilterListCategoryController.to.toDetail,
+            ),
           ),
         ),
       ),

@@ -1,4 +1,6 @@
+import 'package:e_commerce/configs/routes/main_route.dart';
 import 'package:e_commerce/modules/features/cart_screen/models/cart_model.dart';
+import 'package:e_commerce/modules/global_controllers/global_controller.dart';
 import 'package:get/get.dart';
 
 class CartController extends GetxController {
@@ -7,6 +9,12 @@ class CartController extends GetxController {
   RxList<CartModel> cartList = <CartModel>[].obs;
   RxList<bool> checkItems = <bool>[].obs;
   RxBool selectAll = false.obs;
+
+  @override
+  void onInit() {
+    cartList(GlobalController.to.cartListGlobal);
+    super.onInit();
+  }
 
   CartController() {
     cartList.listen((_) {
@@ -37,4 +45,11 @@ class CartController extends GetxController {
     }
     cartList.refresh();
   }
+
+  void toDetail(int index) {
+    final data =  cartList[index].product;
+    Get.toNamed(MainRoute.detailProduct, arguments: data);
+  }
+
+  void onBack() => Get.back();
 }

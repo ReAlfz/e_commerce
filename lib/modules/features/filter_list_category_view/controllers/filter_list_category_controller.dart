@@ -19,11 +19,11 @@ class FilterListCategoryController extends GetxController {
     super.onInit();
   }
 
-  List<ProductModel> get filteredList => (filtered.value.isNotEmpty)
+  RxList<ProductModel> get filteredList => (filtered.value.isNotEmpty)
       ? listCategory
           .where((element) =>
               element.title.toLowerCase().contains(filtered.value.toLowerCase()))
-          .toList()
+          .toList().obs
       : listCategory;
 
   void toDetail(int index) {

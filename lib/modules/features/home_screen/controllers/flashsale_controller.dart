@@ -19,4 +19,6 @@ class FlashSaleController extends GetxController {
     final data = listFlash[index];
     Get.toNamed(MainRoute.detailProduct, arguments: data);
   }
+
+  void favoriteTap() => listFlash.refresh();
 }

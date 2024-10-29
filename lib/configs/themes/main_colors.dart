@@ -8,6 +8,7 @@ class MainColor {
   static const Color blackLight = Color(0xff333333);
   static const Color primary = Color(0xffc3e703);
   static const Color secondary = Color(0xff96d1c7);
+  static const Color secondaryDark = Color(0xff55b4a4);
   static const Color secondaryLight = Color(0xffD4ECE8);
 
   static const Color warning = Color(0xffffc107);

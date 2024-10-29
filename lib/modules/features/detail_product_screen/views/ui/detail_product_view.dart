@@ -70,27 +70,17 @@ class DetailProductView extends StatelessWidget {
                             color: MainColor.grey,
                             borderRadius: BorderRadius.circular(8.r),
                           ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                NumberFormat.currency(
-                                  locale: 'id',
-                                  symbol: 'Rp ',
-                                  decimalDigits: 0,
-                                ).format(DetailProductController
-                                    .to.price.value),
-                                style: TextStyle(
-                                    fontSize: 16.sp,
-                                    fontFamily: 'sf semi-bold',
-                                    color: MainColor.black),
-                              ),
-                              Icon(
-                                Icons.info_outline,
-                                size: 20.r,
-                                color: MainColor.darkGrey,
-                              ),
-                            ],
+                          child: Text(
+                            NumberFormat.currency(
+                              locale: 'id',
+                              symbol: 'Rp ',
+                              decimalDigits: 0,
+                            ).format(DetailProductController
+                                .to.price.value),
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontFamily: 'sf semi-bold',
+                                color: MainColor.black),
                           ),
                         ),
                         16.verticalSpace,

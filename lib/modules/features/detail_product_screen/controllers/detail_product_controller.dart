@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:e_commerce/modules/features/cart_screen/controllers/cart_controller.dart';
+import 'package:e_commerce/configs/routes/main_route.dart';
 import 'package:e_commerce/modules/features/cart_screen/models/cart_model.dart';
 import 'package:e_commerce/modules/features/detail_product_screen/views/components/bottom_sheet_detail.dart';
+import 'package:e_commerce/modules/global_controllers/global_controller.dart';
 import 'package:e_commerce/modules/global_models/product_model.dart';
 import 'package:get/get.dart';
 
@@ -46,6 +47,7 @@ class DetailProductController extends GetxController {
       title: productData.value!.title,
       description: productData.value!.description,
       quantity: 1,
+      product: productData.value!,
       price: price.value,
       images: (productData.value!.variantColor == null)
           ? productData.value!.images.first
@@ -57,18 +59,7 @@ class DetailProductController extends GetxController {
           ? productData.value!.variantSwitch![switchIndex.value].name
           : null,
     );
-
-    int cartIndex = CartController.to.cartList.indexWhere((element) =>
-        element.productId == data.productId &&
-        element.variantColor == data.variantColor &&
-        element.variantSwitch == data.variantSwitch);
-    if (cartIndex != -1) {
-      CartController.to.cartList[cartIndex].quantity++;
-      CartController.to.cartList.refresh();
-    } else {
-      CartController.to.cartList.add(data);
-      CartController.to.cartList.refresh();
-    }
+    GlobalController.to.updateCartListGlobal(data);
   }
 
   @override
@@ -80,7 +71,7 @@ class DetailProductController extends GetxController {
       setPrice();
     }
     Timer(
-      const Duration(milliseconds: 100),
+      const Duration(milliseconds: 400),
       () => state(true),
     );
     super.onInit();
@@ -99,4 +90,6 @@ class DetailProductController extends GetxController {
 
     price(totalPrice);
   }
+
+  void toCart() => Get.toNamed(MainRoute.cart);
 }

@@ -14,8 +14,8 @@ class FlashSaleWidget extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(
-            right: 16.w,
-            left: 16.w,
+            right: 8.w,
+            left: 8.w,
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,6 +36,7 @@ class FlashSaleWidget extends StatelessWidget {
         ),
         10.verticalSpace,
         CustomGridViewWidget(
+          aspectRatio: 0.6,
           list: HomeController.to.listHome,
           onTap: HomeController.to.toDetail,
         ),

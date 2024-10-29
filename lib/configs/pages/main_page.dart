@@ -1,4 +1,6 @@
 import 'package:e_commerce/configs/routes/main_route.dart';
+import 'package:e_commerce/modules/features/cart_screen/bindings/cart_binding.dart';
+import 'package:e_commerce/modules/features/cart_screen/views/ui/cart_view.dart';
 import 'package:e_commerce/modules/features/detail_product_screen/bindings/detail_product_binding.dart';
 import 'package:e_commerce/modules/features/detail_product_screen/views/ui/detail_product_view.dart';
 import 'package:e_commerce/modules/features/filter_list_category_view/bindings/filter_list_category_binding.dart';
@@ -9,6 +11,8 @@ import 'package:e_commerce/modules/features/home_screen/views/ui/category_view.d
 import 'package:e_commerce/modules/features/home_screen/views/ui/flashsale_view.dart';
 import 'package:e_commerce/modules/features/navigation/bindings/navigation_binding.dart';
 import 'package:e_commerce/modules/features/navigation/views/ui/navigation_view.dart';
+import 'package:e_commerce/modules/features/search_data_screen/bindings/search_data_binding.dart';
+import 'package:e_commerce/modules/features/search_data_screen/views/ui/search_data_view.dart';
 import 'package:e_commerce/modules/features/splash_screen/bindings/splash_binding.dart';
 import 'package:e_commerce/modules/features/splash_screen/views/ui/splash_view.dart';
 import 'package:get/get.dart';
@@ -44,6 +48,18 @@ class MainPage {
       name: MainRoute.categoryList,
       page: () => const FilterListCategoryView(),
       binding: FilterListCategoryBinding(),
+    ),
+    GetPage(
+      name: MainRoute.cart,
+      page: () => const CartView(),
+      binding: CartBinding(),
+    ),
+    GetPage(
+      name: MainRoute.search,
+      page: () => const SearchDataView(),
+      binding: SearchDataBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 200),
     ),
   ];
 }

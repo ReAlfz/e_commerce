@@ -14,8 +14,8 @@ class CategoriesWidget extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(
-            right: 16.w,
-            left: 16.w,
+            right: 8.w,
+            left: 8.w,
             top: 24.h,
           ),
           child: Row(
@@ -39,7 +39,7 @@ class CategoriesWidget extends StatelessWidget {
         SizedBox(
           height: 90.h,
           child: ListView.separated(
-            padding: EdgeInsets.symmetric(horizontal: 8.r),
+            padding: EdgeInsets.symmetric(horizontal: 8.w),
             scrollDirection: Axis.horizontal,
             itemCount: Dataset.catalog.length,
             shrinkWrap: true,

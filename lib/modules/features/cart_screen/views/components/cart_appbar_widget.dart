@@ -1,4 +1,5 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/modules/features/cart_screen/controllers/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -7,85 +8,42 @@ class CartAppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Container(
-        padding: EdgeInsets.fromLTRB(
-          16.w, 16.r, 16.w, 0,
+    return AppBar(
+      elevation: 1,
+      automaticallyImplyLeading: false,
+      backgroundColor: MainColor.white,
+      surfaceTintColor: MainColor.white,
+      centerTitle: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(
+          bottom: Radius.circular(25.r),
         ),
-        decoration: BoxDecoration(
-            color: MainColor.white,
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(25.r),
-            )),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Cart',
-                  style: TextStyle(
-                    fontSize: 20.sp,
-                    color: MainColor.black,
-                    fontFamily: 'sf bold',
-                  ),
-                ),
-
-                GestureDetector(
-                  onTap: () {},
-                  child: Container(
-                    padding: EdgeInsets.all(10.r),
-                    decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      shape: BoxShape.circle,
-                    ),
-                    child: const Icon(
-                      Icons.more_horiz,
-                      size: 20,
-                    ),
-                  ),
-                ),
-              ],
+      ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          GestureDetector(
+            onTap: CartController.to.onBack,
+            child: Icon(
+              Icons.arrow_back_ios_new_rounded,
+              color: MainColor.blackLight,
+              size: 20.r,
             ),
-
-            16.verticalSpace,
-
-            SizedBox(
-              height: 40.h,
-              child: TextField(
-                style: TextStyle(
-                  fontSize: 14.sp,
-                ),
-                textAlign: TextAlign.start,
-                decoration: InputDecoration(
-                  prefixIcon: Icon(
-                    Icons.search_outlined,
-                    color: Colors.grey[400],
-                    size: 22.r,
-                  ),
-                  filled: true,
-                  fillColor: MainColor.grey,
-                  hintText: 'Search the entire shop',
-                  hintStyle: TextStyle(
-                    fontSize: 14.sp,
-                    fontFamily: 'sp reguler',
-                    color: Colors.grey[400],
-                  ),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(10.r),
-                  ),
-                ),
-              ),
-            )
-          ],
-        ),
+          ),
+          Text(
+            'Cart',
+            style: TextStyle(
+              fontSize: 20.sp,
+              color: MainColor.blackLight,
+              fontFamily: 'sf bold',
+            ),
+          ),
+          SizedBox(width: 20.w),
+        ],
       ),
     );
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(0.175.sh);
+  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
 }

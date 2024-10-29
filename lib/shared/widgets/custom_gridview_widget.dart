@@ -1,116 +1,129 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/modules/global_controllers/global_controller.dart';
 import 'package:e_commerce/modules/global_models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class CustomGridViewWidget extends StatelessWidget {
+  final double aspectRatio;
   final List<ProductModel> list;
   final Function(int) onTap;
 
   const CustomGridViewWidget(
-      {super.key, required this.list, required this.onTap});
+      {super.key,
+      required this.list,
+      required this.onTap,
+      required this.aspectRatio});
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      padding: EdgeInsets.symmetric(horizontal: 8.w),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        mainAxisSpacing: 5,
-        crossAxisSpacing: 16,
-        childAspectRatio: 0.6,
-      ),
-      itemCount: list.length,
-      shrinkWrap: true,
-      scrollDirection: Axis.vertical,
-      physics: const BouncingScrollPhysics(),
-      itemBuilder: (context, index) {
-        final data = list[index];
-        return GestureDetector(
-          onTap: () => onTap(index),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                height: 150.h,
-                alignment: Alignment.center,
-                padding: EdgeInsets.all(8.r),
-                decoration: BoxDecoration(
-                  color: MainColor.grey,
-                  borderRadius: BorderRadius.circular(16.r),
-                ),
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(16.r),
-                      child: Image.asset(
-                        data.images.first,
-                        fit: BoxFit.scaleDown,
+    return Obx(
+      () => GridView.builder(
+        padding: EdgeInsets.symmetric(horizontal: 8.w),
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 5,
+          crossAxisSpacing: 16,
+          childAspectRatio: aspectRatio,
+        ),
+        itemCount: list.length,
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
+        physics: const BouncingScrollPhysics(),
+        itemBuilder: (context, index) {
+          final data = list[index];
+          return GestureDetector(
+            onTap: () => onTap(index),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 150.h,
+                  alignment: Alignment.center,
+                  padding: EdgeInsets.all(8.r),
+                  decoration: BoxDecoration(
+                    color: MainColor.grey,
+                    borderRadius: BorderRadius.circular(16.r),
+                  ),
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.all(16.r),
+                        child: Image.asset(
+                          data.images.first,
+                          fit: BoxFit.scaleDown,
+                        ),
                       ),
-                    ),
-                    Positioned(
-                      right: 0,
-                      top: 0,
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Container(
-                          padding: EdgeInsets.all(5.r),
-                          decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: MainColor.white,
-                          ),
-                          child: Icon(
-                            Icons.favorite_outline,
-                            color: MainColor.darkGrey,
-                            size: 18.r,
+                      Positioned(
+                        right: 0,
+                        top: 0,
+                        child: GestureDetector(
+                          onTap: () => GlobalController.to.saveFavoriteList(data),
+                          child: Container(
+                            padding: EdgeInsets.all(5.r),
+                            decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: MainColor.white,
+                            ),
+                            child: Icon(
+                              (data.favorite)
+                                  ? Icons.favorite
+                                  : Icons.favorite_outline,
+                              color: (data.favorite)
+                                  ? MainColor.danger
+                                  : MainColor.darkGrey,
+                              size: 18.r,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-              10.verticalSpace,
-              Padding(
-                padding: EdgeInsets.only(left: 5.w),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      data.title,
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        fontFamily: 'sf medium',
+                10.verticalSpace,
+                Padding(
+                  padding: EdgeInsets.only(left: 5.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        data.title,
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontFamily: 'sf medium',
+                          fontWeight: FontWeight.w700,
+                        ),
                       ),
-                    ),
-                    Text(
-                      NumberFormat.currency(
-                        locale: 'id',
-                        symbol: 'Rp ',
-                        decimalDigits: 0,
-                      ).format(data.price),
-                      style: TextStyle(
-                        fontSize: 13.sp,
-                        fontFamily: 'sf medium',
+                      Text(
+                        NumberFormat.currency(
+                          locale: 'id',
+                          symbol: 'Rp ',
+                          decimalDigits: 0,
+                        ).format(data.price),
+                        style: TextStyle(
+                          fontSize: 13.sp,
+                          fontFamily: 'sf medium',
+                        ),
                       ),
-                    ),
-                    5.verticalSpace,
-                    Text(
-                      'Stock: ${data.stock}',
-                      style: TextStyle(
-                        fontSize: 11.sp,
-                        fontFamily: 'sf reguler',
+                      5.verticalSpace,
+                      Text(
+                        'Stock: ${data.stock}',
+                        style: TextStyle(
+                          fontSize: 11.sp,
+                          fontFamily: 'sf reguler',
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 }

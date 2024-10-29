@@ -1,6 +1,6 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/modules/features/home_screen/controllers/flashsale_controller.dart';
-import 'package:e_commerce/modules/features/home_screen/views/components/custom_appbar_widget.dart';
+import 'package:e_commerce/shared/widgets/custom_appbar_widget.dart';
 import 'package:e_commerce/shared/widgets/custom_gridview_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,6 +20,7 @@ class FlashSaleView extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.only(top: 16.h),
           child: CustomGridViewWidget(
+            aspectRatio: 0.6,
             list: FlashSaleController.to.listFlash,
             onTap: FlashSaleController.to.toDetail,
           ),

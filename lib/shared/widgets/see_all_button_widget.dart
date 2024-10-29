@@ -24,15 +24,15 @@ class SeeAllButtonWidget extends StatelessWidget {
           5.horizontalSpace,
 
           Container(
-            padding: EdgeInsets.all(6.r),
+            padding: EdgeInsets.all(2.r),
             alignment: Alignment.center,
             decoration: const BoxDecoration(
               color: MainColor.grey,
               shape: BoxShape.circle,
             ),
             child: Icon(
-              Icons.arrow_forward_ios_rounded,
-              size: 10.r,
+              Icons.chevron_right_rounded,
+              size: 16.r,
               weight: 200,
               color: MainColor.black,
             ),

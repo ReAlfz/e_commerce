@@ -57,10 +57,10 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
                       context: context,
                       conditionBuilder: (context) => widget.color != null,
                       widgetBuilder: (context) => Obx(
-                        () => Image.asset(
+                            () => Image.asset(
                           widget
                               .color![
-                                  DetailProductController.to.colorIndex.value]
+                          DetailProductController.to.colorIndex.value]
                               .image!,
                           fit: BoxFit.scaleDown,
                         ),
