@@ -1,6 +1,6 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
-import 'package:e_commerce/modules/global_controllers/global_controller.dart';
-import 'package:e_commerce/modules/global_models/product_model.dart';
+import 'package:e_commerce/shared/global_controllers/global_controller.dart';
+import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

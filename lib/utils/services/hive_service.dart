@@ -1,20 +1,20 @@
-import 'package:e_commerce/modules/global_models/product_model.dart';
-import 'package:e_commerce/modules/global_models/user_model.dart';
+import 'package:e_commerce/shared/global_models/product_model.dart';
+import 'package:e_commerce/shared/global_models/user_model.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class HiveService extends GetxService{
   HiveService._();
   static final user = Hive.box('user');
-  static final userDatabase = Hive.box('user-database');
-  static final list = Hive.box('list');
+  static final listUser = Hive.box('user-database');
+  static final listFavorite = Hive.box('list');
 
-  static saveNewUser(List<UserModel> myList) async {
-    await userDatabase.put('user_list', myList);
+  static saveListUser(List<UserModel> myList) async {
+    await listUser.put('user_list', myList);
   }
 
-  static List<UserModel>? getUserList() {
-    var dynamicList = userDatabase.get('user_list', defaultValue: []);
+  static List<UserModel>? getListUser() {
+    var dynamicList = listUser.get('user_list', defaultValue: []);
     if (dynamicList is List) return dynamicList.map((item) => item as UserModel).toList();
     return [];
   }
@@ -27,13 +27,22 @@ class HiveService extends GetxService{
     return user.get('currentUser', defaultValue: null);
   }
 
-  static saveList(List<ProductModel> myList) async {
-    await list.put('my_list', myList);
+  static saveListFavorite(List<ProductModel> myList) async {
+    await listFavorite.put('my_list', myList);
   }
 
-  static List<ProductModel>? getList() {
-    var dynamicList = list.get('my_list', defaultValue: []);
+  static List<ProductModel>? getListFavorite() {
+    var dynamicList = listFavorite.get('my_list', defaultValue: []);
     if (dynamicList is List) return dynamicList.map((item) => item as ProductModel).toList();
     return [];
+  }
+
+  static Future<void> initializeHive() async {
+    await Hive.initFlutter();
+    Hive.registerAdapter(ProductModelAdapter());
+    Hive.registerAdapter(UserModelAdapter());
+    await Hive.openBox('user');
+    await Hive.openBox('user-database');
+    await Hive.openBox('list');
   }
 }

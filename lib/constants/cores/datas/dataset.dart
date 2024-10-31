@@ -2,9 +2,9 @@ import 'dart:math';
 
 import 'package:e_commerce/constants/cores/assets/image_constants.dart';
 import 'package:e_commerce/constants/cores/assets/image_dataset.dart';
-import 'package:e_commerce/modules/features/home_screen/models/catalog_model.dart';
-import 'package:e_commerce/modules/global_models/product_model.dart';
-import 'package:e_commerce/modules/global_models/variant_model.dart';
+import 'package:e_commerce/features/home_screen/models/catalog_model.dart';
+import 'package:e_commerce/shared/global_models/product_model.dart';
+import 'package:e_commerce/shared/global_models/variant_model.dart';
 
 class Dataset {
   static final catalog = <CatalogModel>[
