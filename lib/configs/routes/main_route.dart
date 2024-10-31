@@ -8,5 +8,6 @@ class MainRoute {
   static const String categoryDetail = '/category-detail';
   static const String search = '/search';
   static const String cart = '/cart';
+  static const String login = '/login';
   static const String signUp = '/sign-up';
 }

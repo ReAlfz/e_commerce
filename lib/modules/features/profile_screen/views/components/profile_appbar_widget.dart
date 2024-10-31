@@ -25,12 +25,18 @@ class ProfileAppbarWidget extends StatelessWidget
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Account',
-              style: TextStyle(
-                fontSize: 20.sp,
-                color: MainColor.black,
-                fontFamily: 'sf bold',
+            Hero(
+              tag: 'sign',
+              child: Material(
+                color: Colors.transparent,
+                child: Text(
+                  'Account',
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    color: MainColor.black,
+                    fontFamily: 'sf bold',
+                  ),
+                ),
               ),
             ),
             DropdownButtonHideUnderline(
@@ -41,7 +47,7 @@ class ProfileAppbarWidget extends StatelessWidget
                   color: MainColor.secondaryDark,
                   size: 25.r,
                 ),
-                onChanged: (value) {},
+                onChanged: (value) => ProfileController.to.toPush(value),
                 items: ProfileController.to.dropdownList.map((item) {
                   return DropdownMenuItem(
                     value: item.route,

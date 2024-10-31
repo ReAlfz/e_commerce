@@ -1,9 +1,12 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/constants/cores/assets/image_constants.dart';
+import 'package:e_commerce/modules/features/profile_screen/controllers/profile_controller.dart';
 import 'package:e_commerce/modules/features/profile_screen/views/components/profile_appbar_widget.dart';
 import 'package:e_commerce/modules/features/profile_screen/views/components/tile_option_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_conditional_rendering/conditional_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
 class ProfileView extends StatelessWidget {
   const ProfileView({super.key});
@@ -37,19 +40,34 @@ class ProfileView extends StatelessWidget {
                 decoration: const BoxDecoration(shape: BoxShape.circle),
                 child: Stack(
                   children: [
-                    Container(
-                      color: MainColor.grey,
-                      child: Image.asset(
-                        ImageConstants.bgImage,
-                        width: 170.r,
-                        height: 170.r,
-                        fit: BoxFit.cover,
+                    Obx(
+                      () => ConditionalSwitch.single(
+                        context: context,
+                        valueBuilder: (context) => ProfileController.to.photoState.value,
+                        caseBuilders: {
+                          // 'data-session':,
+                          'data-file': (context) => Image.file(
+                            ProfileController.to.imageFile.value!,
+                            width: 170.r,
+                            height: 170.r,
+                            fit: BoxFit.cover,
+                          ),
+                          'no-data': (context) => Container(
+                            color: MainColor.grey,
+                            child: Image.asset(
+                              ImageConstants.bgImage,
+                              width: 170.r,
+                              height: 170.r,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                        }
                       ),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () => ProfileController.to.pickImage(),
                         child: Container(
                           width: 150.w,
                           color: MainColor.primary,
@@ -71,33 +89,43 @@ class ProfileView extends StatelessWidget {
               ),
             ),
             42.verticalSpace,
-            Column(
-              children: [
-                TileOptionWidget(
-                  title: 'Name',
-                ),
-
-                TileOptionWidget(
-                  title: 'Email',
-                ),
-
-                TileOptionWidget(
-                  title: 'Phone Number',
-                ),
-
-                TileOptionWidget(
-                  title: 'Address',
-                ),
-
-                TileOptionWidget(
-                  title: 'Contry',
-                ),
-
-                TileOptionWidget(
-                  title: 'Password',
-                ),
-              ],
-            )
+            Obx(
+              () => Column(
+                children: [
+                  TileOptionWidget(
+                    title: 'Name',
+                    message: ProfileController.to.user.value?.name ?? 'username',
+                    onTap: () {},
+                  ),
+                  TileOptionWidget(
+                    title: 'Email',
+                    message: ProfileController.to.user.value?.email ?? 'email@xx.com',
+                    onTap: () {},
+                  ),
+                  TileOptionWidget(
+                    title: 'Phone Number',
+                    message: ProfileController.to.user.value?.phone ?? '...',
+                    onTap: () {},
+                  ),
+                  TileOptionWidget(
+                    title: 'Address',
+                    message: ProfileController.to.user.value?.address ?? '...',
+                    onTap: () {},
+                  ),
+                  TileOptionWidget(
+                    title: 'Contry',
+                    message: ProfileController.to.user.value?.country ?? '...',
+                    onTap: () {},
+                  ),
+                  TileOptionWidget(
+                    title: 'Password',
+                    message: ProfileController.to.user.value?.password ?? '...',
+                    onTap: () {},
+                    isObscure: true,
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

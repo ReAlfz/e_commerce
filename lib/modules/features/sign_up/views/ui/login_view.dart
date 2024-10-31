@@ -1,17 +1,18 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
-import 'package:e_commerce/modules/features/sign_up/controllers/sign_up_controller.dart';
+import 'package:e_commerce/modules/features/sign_up/controllers/login_controller.dart';
 import 'package:e_commerce/shared/widgets/custom_background.dart';
 import 'package:e_commerce/shared/widgets/custom_button.dart';
 import 'package:e_commerce/shared/widgets/custom_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class SignUpView extends StatelessWidget {
-  const SignUpView({super.key});
+class LoginView extends StatelessWidget {
+  const LoginView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    const String currentPage = 'Sign Up';
+    const String currentPage = 'Log In';
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -21,7 +22,7 @@ class SignUpView extends StatelessWidget {
             children: [
               const CustomBackGround(),
               GestureDetector(
-                onTap: SignUpController.to.onBack,
+                onTap: LoginController.to.onBack,
                 child: Container(
                   margin: EdgeInsets.only(left: 16.w, top: 8.h),
                   padding: EdgeInsets.all(4.r),
@@ -47,11 +48,12 @@ class SignUpView extends StatelessWidget {
                     ),
                     decoration: BoxDecoration(
                       color: MainColor.white,
-                      borderRadius: BorderRadius.circular(20.r),
+                      borderRadius: BorderRadius.circular(25.r),
                     ),
                     child: Form(
-                      key: SignUpController.to.signInKey,
+                      key: LoginController.to.signUpKey,
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Hero(
                             tag: 'sign',
@@ -59,7 +61,6 @@ class SignUpView extends StatelessWidget {
                               color: Colors.transparent,
                               child: Text(
                                 currentPage,
-                                textAlign: TextAlign.center,
                                 style: TextStyle(
                                   fontSize: 25.sp,
                                   color: MainColor.blackLight,
@@ -70,44 +71,38 @@ class SignUpView extends StatelessWidget {
                           ),
                           42.verticalSpace,
                           CustomTextField(
-                            label: 'Name',
-                            isObscure: false,
-                            isRequired: true,
-                            requiredText: 'Name cant be empty',
-                            keyboardType: TextInputType.text,
-                            controller: SignUpController.to.nameController,
-                          ),
-                          16.verticalSpace,
-                          CustomTextField(
-                            label: 'Email',
-                            isObscure: false,
-                            isRequired: true,
-                            requiredText: 'Email cant be empty',
-                            keyboardType: TextInputType.emailAddress,
-                            controller: SignUpController.to.emailController,
-                          ),
-                          16.verticalSpace,
-                          CustomTextField(
                             label: 'Phone Number',
                             isObscure: false,
                             isRequired: true,
-                            requiredText: 'Phone Number cant be empty',
-                            keyboardType: TextInputType.text,
-                            controller: SignUpController.to.phoneController,
+                            requiredText: 'Phone number cant be empty',
+                            keyboardType: TextInputType.phone,
+                            controller: LoginController.to.phoneController,
                           ),
-                          16.verticalSpace,
-                          CustomTextField(
-                            label: 'Password',
-                            isObscure: true,
-                            isRequired: true,
-                            requiredText: 'Password cant be empty',
-                            keyboardType: TextInputType.text,
-                            controller: SignUpController.to.passwordController,
+                          24.verticalSpace,
+                          Obx(
+                                () => CustomTextField(
+                              label: 'Password',
+                              isObscure: LoginController.to.isObscure.value,
+                              isRequired: true,
+                              requiredText: 'Password cant be empty',
+                              keyboardType: TextInputType.text,
+                              controller: LoginController.to.passwordController,
+                              suffixIcon: GestureDetector(
+                                onTap: LoginController.to.showObscure,
+                                child: Icon(
+                                  (LoginController.to.isObscure.value)
+                                      ? Icons.visibility_outlined
+                                      : Icons.visibility_off_outlined,
+                                  size: 14.r,
+                                  color: MainColor.blackLight,
+                                ),
+                              ),
+                            ),
                           ),
                           42.verticalSpace,
                           CustomButton(
                             title: currentPage,
-                            onTap: () => SignUpController.to.validateForm(context),
+                            onTap: () => LoginController.to.validateForm(context),
                           ),
                         ],
                       ),
@@ -117,7 +112,7 @@ class SignUpView extends StatelessWidget {
               ),
             ],
           ),
-        ),
+        )
       ),
     );
   }

@@ -7,6 +7,7 @@ import 'package:e_commerce/modules/features/home_screen/controllers/flashsale_co
 import 'package:e_commerce/modules/features/home_screen/controllers/home_controller.dart';
 import 'package:e_commerce/modules/features/search_data_screen/controllers/search_data_controller.dart';
 import 'package:e_commerce/modules/global_models/product_model.dart';
+import 'package:e_commerce/modules/global_models/user_model.dart';
 import 'package:e_commerce/utils/services/hive_service.dart';
 import 'package:get/get.dart';
 
@@ -69,5 +70,14 @@ class GlobalController extends GetxController {
     } else {
       cartListGlobal.add(data);
     }
+  }
+
+  List<UserModel> userData = <UserModel>[].obs;
+  Rxn<UserModel> user = Rxn<UserModel>();
+  @override
+  void onInit() {
+    user(HiveService.getUser());
+    userData = HiveService.getUserList() as List<UserModel>;
+    super.onInit();
   }
 }

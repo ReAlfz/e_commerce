@@ -4,11 +4,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class TileOptionWidget extends StatelessWidget {
   final String title;
+  final bool? isObscure;
   final String? message;
   final VoidCallback? onTap;
 
   const TileOptionWidget(
-      {super.key, required this.title, this.message, this.onTap});
+      {super.key,
+      required this.title,
+      this.message,
+      this.onTap,
+      this.isObscure});
 
   @override
   Widget build(BuildContext context) {
@@ -28,23 +33,28 @@ class TileOptionWidget extends StatelessWidget {
             Expanded(
               child: Container(
                 constraints: BoxConstraints(maxWidth: 125.w),
-                child: (message != null) ? Text(
-                  message!,
-                  textAlign: TextAlign.end,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontFamily: 'sf medium',
-                    color: MainColor.blackLight,
-                  ),
-                ) : const SizedBox(),
+                child: (message != null)
+                    ? Text(
+                        (isObscure != null && isObscure!)
+                            ? message!.replaceAll(RegExp(r"."), '*')
+                            : message!,
+                        textAlign: TextAlign.end,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          fontFamily: 'sf medium',
+                          color: MainColor.blackLight,
+                        ),
+                      )
+                    : const SizedBox(),
               ),
             ),
-
-            if (onTap != null) Icon(
-              Icons.chevron_right,
-              color: MainColor.blackLight,
-              size: 18.r,
-            ),
+            if (onTap != null)
+              Icon(
+                Icons.chevron_right,
+                color: MainColor.blackLight,
+                size: 18.r,
+              ),
           ],
         ),
       ),

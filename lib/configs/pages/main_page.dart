@@ -13,6 +13,10 @@ import 'package:e_commerce/modules/features/navigation/bindings/navigation_bindi
 import 'package:e_commerce/modules/features/navigation/views/ui/navigation_view.dart';
 import 'package:e_commerce/modules/features/search_data_screen/bindings/search_data_binding.dart';
 import 'package:e_commerce/modules/features/search_data_screen/views/ui/search_data_view.dart';
+import 'package:e_commerce/modules/features/sign_up/bindings/sign_up_binding.dart';
+import 'package:e_commerce/modules/features/sign_up/bindings/login_binding.dart';
+import 'package:e_commerce/modules/features/sign_up/views/ui/sign_up_view.dart';
+import 'package:e_commerce/modules/features/sign_up/views/ui/login_view.dart';
 import 'package:e_commerce/modules/features/splash_screen/bindings/splash_binding.dart';
 import 'package:e_commerce/modules/features/splash_screen/views/ui/splash_view.dart';
 import 'package:get/get.dart';
@@ -61,5 +65,19 @@ class MainPage {
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 200),
     ),
+    GetPage(
+      name: MainRoute.login,
+      page: () => const LoginView(),
+      binding: LoginBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 200),
+    ),
+    GetPage(
+      name: MainRoute.signUp,
+      page: () => const SignUpView(),
+      binding: SignUpBinding(),
+      transition: Transition.fadeIn,
+      transitionDuration: const Duration(milliseconds: 200),
+    )
   ];
 }
