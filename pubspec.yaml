@@ -54,6 +54,7 @@ dependencies:
   image_cropper: ^8.0.2
   path_provider: ^2.1.5
   sentry_flutter: ^8.9.0
+  add_to_cart_animation: ^2.0.4
 
 
 dev_dependencies:

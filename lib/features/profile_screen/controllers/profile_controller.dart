@@ -125,17 +125,41 @@ class ProfileController extends GetxController {
 
   void changeData({required String code}) async {
     final data = await Get.bottomSheet(
-      const ProfileBottomSheet(),
+      ProfileBottomSheet(title: code),
       isDismissible: true,
     );
-    switch (code) {
-      case 'Name':
-      case 'Email':
-      case 'Number':
-      case 'Address':
-      case 'Country':
-      case 'Password':
-      default:
+
+    if (data != null) {
+      switch (code) {
+        case 'Name':
+          user.value!.name = data as String;
+          break;
+
+        case 'Email':
+          user.value!.email = data as String;
+          break;
+
+        case 'Phone Number':
+          user.value!.phone = data as String;
+          break;
+
+        case 'Address':
+          user.value!.address = data as String;
+          break;
+
+        case 'Country':
+          user.value!.country = data as String;
+          break;
+
+        case 'Password':
+          user.value!.password = data as String;
+          break;
+
+        default:
+          break;
+      }
+      updateHive();
+      user.refresh();
     }
   }
 
@@ -152,5 +176,6 @@ class ProfileController extends GetxController {
     )] = user.value!;
     HiveService.saveUser(user.value!);
     HiveService.saveListUser(GlobalController.to.userData);
+    GlobalController.to.user(user.value);
   }
 }

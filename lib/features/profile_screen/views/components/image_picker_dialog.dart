@@ -1,4 +1,5 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -17,10 +18,9 @@ class ImagePickerDialog extends StatelessWidget {
         children: [
           Text(
             'Select Image Source',
-            style: TextStyle(
-              fontSize: 18.sp,
-              fontFamily: 'sf medium',
+            style: SfTextStyles.fontMedium(
               color: MainColor.blackLight,
+              fontSize: 18.sp,
             ),
           ),
 
@@ -38,10 +38,9 @@ class ImagePickerDialog extends StatelessWidget {
                 16.horizontalSpace,
                 Text(
                   'Galery',
-                  style: TextStyle(
-                    fontSize: fontSize,
-                    fontFamily: 'sf medium',
+                  style: SfTextStyles.fontMedium(
                     color: MainColor.blackLight,
+                    fontSize: fontSize,
                   ),
                 ),
               ],
@@ -61,10 +60,9 @@ class ImagePickerDialog extends StatelessWidget {
                 16.horizontalSpace,
                 Text(
                   'Camera',
-                  style: TextStyle(
-                    fontSize: fontSize,
-                    fontFamily: 'sf medium',
+                  style: SfTextStyles.fontMedium(
                     color: MainColor.blackLight,
+                    fontSize: fontSize,
                   ),
                 ),
               ],

@@ -1,4 +1,5 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -14,9 +15,8 @@ class SeeAllButtonWidget extends StatelessWidget {
         children: [
           Text(
             'See all',
-            style: TextStyle(
+            style: SfTextStyles.fontMedium(
               color: MainColor.darkGrey,
-              fontFamily: 'sf medium',
               fontSize: 14.sp,
             ),
           ),

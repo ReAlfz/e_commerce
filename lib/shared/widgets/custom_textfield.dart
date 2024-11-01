@@ -1,4 +1,5 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -18,7 +19,8 @@ class CustomTextField extends StatelessWidget {
       required this.isRequired,
       required this.requiredText,
       required this.keyboardType,
-      required this.controller, this.suffixIcon});
+      required this.controller,
+      this.suffixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +32,9 @@ class CustomTextField extends StatelessWidget {
           padding: EdgeInsets.only(left: 4.w),
           child: Text(
             label,
-            style: TextStyle(
+            style: SfTextStyles.fontMedium(
               color: MainColor.blackLight,
               fontSize: 14.sp,
-              fontFamily: 'sf medium',
             ),
           ),
         ),
@@ -50,27 +51,39 @@ class CustomTextField extends StatelessWidget {
 
             return null;
           },
-          style: TextStyle(
-            fontSize: 14.sp,
+          style: SfTextStyles.fontRegular(
             color: MainColor.blackLight,
-            fontFamily: 'sf reguler',
+            fontSize: 14.sp,
           ),
           decoration: InputDecoration(
             isDense: true,
             filled: true,
             suffixIcon: suffixIcon,
             fillColor: Colors.white60,
+            contentPadding: EdgeInsets.symmetric(
+              horizontal: 12.w,
+              vertical: 8.h,
+            ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
-              borderSide: BorderSide(width: 1.2.r, color: MainColor.blackLight)
+              borderSide: BorderSide(
+                width: 1.2.r,
+                color: MainColor.blackLight,
+              ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(8.r),
-              borderSide: BorderSide(width: 1.2.r, color: MainColor.secondaryDark)
+              borderSide: BorderSide(
+                width: 1.2.r,
+                color: MainColor.secondaryDark,
+              ),
             ),
             border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.r),
-                borderSide: BorderSide(width: 1.2.r, color: MainColor.secondaryDark)
+              borderRadius: BorderRadius.circular(8.r),
+              borderSide: BorderSide(
+                width: 1.2.r,
+                color: MainColor.secondaryDark,
+              ),
             ),
           ),
         ),

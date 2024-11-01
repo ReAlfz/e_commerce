@@ -1,6 +1,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/profile_screen/controllers/profile_controller.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -31,10 +32,9 @@ class ProfileAppbarWidget extends StatelessWidget
                 color: Colors.transparent,
                 child: Text(
                   'Account',
-                  style: TextStyle(
-                    fontSize: 20.sp,
+                  style: SfTextStyles.fontBold(
                     color: MainColor.black,
-                    fontFamily: 'sf bold',
+                    fontSize: 20.sp,
                   ),
                 ),
               ),
@@ -53,10 +53,9 @@ class ProfileAppbarWidget extends StatelessWidget
                     value: item.route,
                     child: Text(
                       item.title,
-                      style: TextStyle(
-                        fontSize: 14.sp,
-                        fontFamily: 'sf medium',
+                      style: SfTextStyles.fontMedium(
                         color: MainColor.blackLight,
+                        fontSize: 14.sp,
                       ),
                     ),
                   );

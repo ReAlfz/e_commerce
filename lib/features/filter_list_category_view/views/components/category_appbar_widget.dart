@@ -1,5 +1,6 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/filter_list_category_view/controllers/filter_list_category_controller.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -39,10 +40,9 @@ class CategoryAppbarWidget extends StatelessWidget
                   ),
                   Text(
                     title,
-                    style: TextStyle(
-                      fontSize: 20.sp,
+                    style: SfTextStyles.fontBold(
                       color: MainColor.black,
-                      fontFamily: 'sf bold',
+                      fontSize: 20.sp,
                     ),
                   ),
                   SizedBox(width: 20.r),
@@ -67,10 +67,9 @@ class CategoryAppbarWidget extends StatelessWidget
                   filled: true,
                   fillColor: MainColor.grey,
                   hintText: 'Search the entire shop',
-                  hintStyle: TextStyle(
+                  hintStyle: SfTextStyles.fontRegular(
+                    color: Colors.grey[400]!,
                     fontSize: 14.sp,
-                    fontFamily: 'sp reguler',
-                    color: Colors.grey[400],
                   ),
                   contentPadding: EdgeInsets.symmetric(horizontal: 16.w),
                   border: OutlineInputBorder(

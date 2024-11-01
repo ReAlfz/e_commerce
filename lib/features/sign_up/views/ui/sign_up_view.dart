@@ -1,5 +1,6 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/sign_up/controllers/sign_up_controller.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:e_commerce/shared/widgets/custom_background.dart';
 import 'package:e_commerce/shared/widgets/custom_button.dart';
 import 'package:e_commerce/shared/widgets/custom_textfield.dart';
@@ -60,10 +61,9 @@ class SignUpView extends StatelessWidget {
                               child: Text(
                                 currentPage,
                                 textAlign: TextAlign.center,
-                                style: TextStyle(
-                                  fontSize: 25.sp,
+                                style: SfTextStyles.fontBold(
                                   color: MainColor.blackLight,
-                                  fontFamily: 'sf bold',
+                                  fontSize: 25.sp,
                                 ),
                               ),
                             ),

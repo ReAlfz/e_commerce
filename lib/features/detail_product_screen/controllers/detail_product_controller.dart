@@ -1,10 +1,12 @@
 import 'dart:async';
 
+import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:e_commerce/configs/routes/main_route.dart';
 import 'package:e_commerce/features/cart_screen/models/cart_model.dart';
 import 'package:e_commerce/features/detail_product_screen/views/components/bottom_sheet_detail.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class DetailProductController extends GetxController {
@@ -17,7 +19,15 @@ class DetailProductController extends GetxController {
   RxInt colorIndex = 0.obs;
   RxInt switchIndex = 0.obs;
 
-  void onBack() => Get.back();
+  GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
+  GlobalKey imageBottomSheetKey = GlobalKey();
+  GlobalKey imageKey = GlobalKey();
+  late Function(GlobalKey) runCartAnimation;
+
+  void runAnimationCartNow(GlobalKey key) async {
+    await runCartAnimation(key);
+    await cartKey.currentState!.runCartAnimation();
+  }
 
   void changeIndex({int? colorIdx, int? switchIdx}) {
     if (productData.value!.variantSwitch != null && switchIdx != null) {
@@ -38,6 +48,7 @@ class DetailProductController extends GetxController {
       );
     } else {
       convertToCart();
+      runAnimationCartNow(imageKey);
     }
   }
 

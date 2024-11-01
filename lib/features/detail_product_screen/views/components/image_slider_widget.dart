@@ -19,7 +19,9 @@ class ImageSliderWidget extends StatelessWidget {
           fit: StackFit.expand,
           alignment: Alignment.center,
           children: [
-            Padding(
+            Container(
+              color: Colors.transparent,
+              key: DetailProductController.to.imageKey,
               padding: EdgeInsets.only(bottom: 0.085.sh),
               child: CarouselSlider.builder(
                 itemCount:
@@ -34,7 +36,8 @@ class ImageSliderWidget extends StatelessWidget {
                   enlargeCenterPage: true,
                   disableCenter: false,
                   enableInfiniteScroll: (DetailProductController
-                          .to.productData.value!.images.length <= 1)
+                              .to.productData.value!.images.length <=
+                          1)
                       ? false
                       : true,
                   onPageChanged: (index, reason) {

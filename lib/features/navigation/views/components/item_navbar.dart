@@ -1,5 +1,6 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/navigation/controllers/navigation_controller.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -41,9 +42,8 @@ class ItemNavbar extends StatelessWidget {
                 ),
                 Text(
                   title,
-                  style: TextStyle(
+                  style: SfTextStyles.fontRegular(
                     fontSize: 12.sp,
-                    fontFamily: 'sf reguler',
                     color: (NavigationController.to.changeState(index))
                         ? MainColor.black
                         : MainColor.darkGrey,

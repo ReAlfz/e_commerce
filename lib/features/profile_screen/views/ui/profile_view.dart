@@ -5,6 +5,7 @@ import 'package:e_commerce/constants/cores/assets/image_constants.dart';
 import 'package:e_commerce/features/profile_screen/controllers/profile_controller.dart';
 import 'package:e_commerce/features/profile_screen/views/components/profile_appbar_widget.dart';
 import 'package:e_commerce/features/profile_screen/views/components/tile_option_widget.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -83,11 +84,8 @@ class ProfileView extends StatelessWidget {
                           child: Text(
                             'Change',
                             textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 13.sp,
-                              fontFamily: 'sf medium',
-                              color: MainColor.blackLight,
-                            ),
+                            style: SfTextStyles.fontMedium(color: MainColor.blackLight,
+                              fontSize: 13.sp,),
                           ),
                         ),
                       ),
@@ -108,27 +106,27 @@ class ProfileView extends StatelessWidget {
                   TileOptionWidget(
                     title: 'Email',
                     message: ProfileController.to.user.value?.email ?? 'email@xx.com',
-                    onTap: () {},
+                    onTap: () => ProfileController.to.changeData(code: 'Email'),
                   ),
                   TileOptionWidget(
                     title: 'Phone Number',
                     message: ProfileController.to.user.value?.phone ?? '...',
-                    onTap: () {},
+                    onTap: () => ProfileController.to.changeData(code: 'Phone Number'),
                   ),
                   TileOptionWidget(
                     title: 'Address',
                     message: ProfileController.to.user.value?.address ?? '...',
-                    onTap: () {},
+                    onTap: () => ProfileController.to.changeData(code: 'Address'),
                   ),
                   TileOptionWidget(
                     title: 'Country',
                     message: ProfileController.to.user.value?.country ?? '...',
-                    onTap: () {},
+                    onTap: () => ProfileController.to.changeData(code: 'Country'),
                   ),
                   TileOptionWidget(
                     title: 'Password',
                     message: ProfileController.to.user.value?.password ?? '...',
-                    onTap: () {},
+                    onTap: () => ProfileController.to.changeData(code: 'Password'),
                     isObscure: true,
                   ),
                 ],

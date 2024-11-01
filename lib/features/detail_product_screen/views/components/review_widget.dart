@@ -1,6 +1,7 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/detail_product_screen/controllers/detail_product_controller.dart';
 import 'package:e_commerce/features/detail_product_screen/views/components/border_container_item.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,19 +26,17 @@ class ReviewWidget extends StatelessWidget {
               2.5.horizontalSpace,
               Text(
                 DetailProductController.to.productData.value!.rating.toString(),
-                style: TextStyle(
-                  fontSize: 12.sp,
+                style: SfTextStyles.fontMedium(
                   color: MainColor.black,
-                  fontFamily: 'sf medium',
+                  fontSize: 12.sp,
                 ),
               ),
               10.horizontalSpace,
               Text(
                 '${DetailProductController.to.productData.value!.totalReview} reviews',
-                style: TextStyle(
-                  fontSize: 12.sp,
+                style: SfTextStyles.fontMedium(
                   color: MainColor.darkGrey,
-                  fontFamily: 'sf medium',
+                  fontSize: 12.sp,
                 ),
               ),
             ],
@@ -55,10 +54,9 @@ class ReviewWidget extends StatelessWidget {
               5.horizontalSpace,
               Text(
                 '${DetailProductController.to.productData.value!.goodReview.toInt()}%',
-                style: TextStyle(
-                  fontSize: 12.sp,
+                style: SfTextStyles.fontMedium(
                   color: MainColor.black,
-                  fontFamily: 'sf medium',
+                  fontSize: 12.sp,
                 ),
               ),
             ],
@@ -76,10 +74,9 @@ class ReviewWidget extends StatelessWidget {
               2.5.horizontalSpace,
               Text(
                 DetailProductController.to.productData.value!.numberChat.toString(),
-                style: TextStyle(
-                    fontSize: 12.sp,
-                    color: MainColor.black,
-                    fontFamily: 'sf medium'
+                style: SfTextStyles.fontMedium(
+                  color: MainColor.black,
+                  fontSize: 12.sp,
                 ),
               ),
             ],

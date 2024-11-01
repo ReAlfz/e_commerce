@@ -1,4 +1,5 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:e_commerce/shared/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -70,10 +71,10 @@ class ProductShimmerDetail extends StatelessWidget {
                             symbol: 'Rp ',
                             decimalDigits: 0,
                           ).format(200000),
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontFamily: 'sf semi-bold',
-                              color: MainColor.black),
+                          style: SfTextStyles.fontSemiBold(
+                            color: MainColor.black,
+                            fontSize: 16.sp,
+                          ),
                         ),
                         Icon(
                           Icons.info_outline,

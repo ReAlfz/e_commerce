@@ -10,9 +10,7 @@ class CartCheckBoxWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        onTap(isChecked);
-      },
+      onTap: () => onTap(isChecked),
       child: AnimatedContainer(
         curve: Curves.easeInOut,
         duration: const Duration(milliseconds: 300),

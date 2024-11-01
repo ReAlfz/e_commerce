@@ -2,6 +2,7 @@ import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/detail_product_screen/controllers/detail_product_controller.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:e_commerce/shared/global_models/variant_model.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:e_commerce/shared/widgets/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
@@ -9,19 +10,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class BottomSheetDetail extends StatefulWidget {
+class BottomSheetDetail extends StatelessWidget {
   final ProductModel productModel;
   final List<VariantModel>? color;
   final List<VariantModel>? switchOption;
 
-  const BottomSheetDetail(
-      {super.key, this.color, this.switchOption, required this.productModel});
+  const BottomSheetDetail({
+    super.key,
+    this.color,
+    this.switchOption,
+    required this.productModel,
+  });
 
-  @override
-  State<BottomSheetDetail> createState() => _BottomSheetDetailState();
-}
-
-class _BottomSheetDetailState extends State<BottomSheetDetail> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -47,6 +47,7 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
+                    key: DetailProductController.to.imageBottomSheetKey,
                     width: 75.w,
                     padding: EdgeInsets.all(8.r),
                     decoration: BoxDecoration(
@@ -55,18 +56,16 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
                     ),
                     child: Conditional.single(
                       context: context,
-                      conditionBuilder: (context) => widget.color != null,
+                      conditionBuilder: (context) => color != null,
                       widgetBuilder: (context) => Obx(
-                            () => Image.asset(
-                          widget
-                              .color![
-                          DetailProductController.to.colorIndex.value]
+                        () => Image.asset(
+                          color![DetailProductController.to.colorIndex.value]
                               .image!,
                           fit: BoxFit.scaleDown,
                         ),
                       ),
                       fallbackBuilder: (context) => Image.asset(
-                        widget.productModel.images.first,
+                        productModel.images.first,
                         fit: BoxFit.scaleDown,
                       ),
                     ),
@@ -82,10 +81,9 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
                         symbol: 'Rp ',
                         decimalDigits: 0,
                       ).format(DetailProductController.to.price.value),
-                      style: TextStyle(
-                        fontSize: 14.sp,
+                      style: SfTextStyles.fontMedium(
                         color: MainColor.black,
-                        fontFamily: 'sf medium',
+                        fontSize: 14.sp,
                       ),
                     ),
                   ),
@@ -94,11 +92,10 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
                   top: 47.5.h,
                   left: 85.w,
                   child: Text(
-                    'Stock: ${widget.productModel.stock}',
-                    style: TextStyle(
-                      fontSize: 13.sp,
+                    'Stock: ${productModel.stock}',
+                    style: SfTextStyles.fontRegular(
                       color: MainColor.darkGrey,
-                      fontFamily: 'sf reguler',
+                      fontSize: 13.sp,
                     ),
                   ),
                 ),
@@ -108,7 +105,7 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
                   child: Transform.translate(
                     offset: const Offset(0, -7.5),
                     child: GestureDetector(
-                      onTap: DetailProductController.to.onBack,
+                      onTap: Get.back,
                       child: Icon(
                         Icons.cancel_outlined,
                         size: 22.5.r,
@@ -128,20 +125,19 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
             endIndent: 3.w,
           ),
           5.verticalSpace,
-          if (widget.color != null) ...[
+          if (color != null) ...[
             Text(
               'Colors',
-              style: TextStyle(
+              style: SfTextStyles.fontMedium(
                 fontSize: 12.sp,
                 color: MainColor.blackLight,
-                fontFamily: 'sf medium',
               ),
             ),
             5.verticalSpace,
             Wrap(
               runSpacing: 5,
               spacing: 15,
-              children: List.generate(widget.color!.length, (index) {
+              children: List.generate(color!.length, (index) {
                 return Obx(
                   () => GestureDetector(
                     onTap: () {
@@ -170,17 +166,17 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
                           FittedBox(
                             child: Image.asset(
                               height: 25.h,
-                              widget.color![index].image!,
+                              color![index].image!,
                               fit: BoxFit.scaleDown,
                             ),
                           ),
                           5.horizontalSpace,
                           Flexible(
                             child: Text(
-                              widget.color![index].name,
-                              style: TextStyle(
-                                fontSize: 12.sp,
+                              color![index].name,
+                              style: SfTextStyles.fontRegular(
                                 color: MainColor.darkGrey,
+                                fontSize: 12.sp,
                               ),
                             ),
                           ),
@@ -193,21 +189,20 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
               }),
             ),
           ],
-          if (widget.switchOption != null) ...[
+          if (switchOption != null) ...[
             26.verticalSpace,
             Text(
               'Switch',
-              style: TextStyle(
+              style: SfTextStyles.fontMedium(
                 fontSize: 12.sp,
                 color: MainColor.blackLight,
-                fontFamily: 'sf medium',
               ),
             ),
             5.verticalSpace,
             Wrap(
               runSpacing: 5,
               spacing: 15,
-              children: List.generate(widget.switchOption!.length, (index) {
+              children: List.generate(switchOption!.length, (index) {
                 return Obx(
                   () => GestureDetector(
                     onTap: () {
@@ -235,8 +230,8 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
                         children: [
                           7.5.horizontalSpace,
                           Text(
-                            widget.switchOption![index].name,
-                            style: TextStyle(
+                            switchOption![index].name,
+                            style: SfTextStyles.fontRegular(
                               fontSize: 12.sp,
                               color: MainColor.darkGrey,
                             ),
@@ -255,7 +250,10 @@ class _BottomSheetDetailState extends State<BottomSheetDetail> {
             title: 'Add to Cart',
             onTap: () {
               DetailProductController.to.convertToCart();
-              DetailProductController.to.onBack();
+              DetailProductController.to.runAnimationCartNow(
+                DetailProductController.to.imageBottomSheetKey,
+              );
+              Get.back();
             },
           ),
         ],

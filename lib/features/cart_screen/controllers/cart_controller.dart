@@ -18,7 +18,7 @@ class CartController extends GetxController {
 
   CartController() {
     cartList.listen((_) {
-      checkItems.value = List<bool>.filled(cartList.length, false);
+      checkItems(List<bool>.filled(cartList.length, false));
     });
   }
 
@@ -31,6 +31,17 @@ class CartController extends GetxController {
     checkItems[index] = !checkItems[index];
     selectAll.value = checkItems.every((item) => item);
   }
+
+  void removeItemsSelected() {
+    List<CartModel> filterCartList = [];
+    for (int i = 0; i < cartList.length; i++) {
+      if (!checkItems[i]) filterCartList.add(cartList[i]);
+    }
+
+    cartList(filterCartList);
+    checkItems(List<bool>.filled(cartList.length, false));
+  }
+
 
   void onIncrement(int index) {
     cartList[index].quantity++;
@@ -50,6 +61,4 @@ class CartController extends GetxController {
     final data =  cartList[index].product;
     Get.toNamed(MainRoute.detailProduct, arguments: data);
   }
-
-  void onBack() => Get.back();
 }

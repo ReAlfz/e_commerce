@@ -1,4 +1,5 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -25,10 +26,9 @@ class TileOptionWidget extends StatelessWidget {
           children: [
             Text(
               title,
-              style: TextStyle(
-                fontSize: 14.sp,
+              style: SfTextStyles.fontMedium(
                 color: MainColor.blackLight,
-                fontFamily: 'sf medium',
+                fontSize: 14.sp,
               ),
             ),
             Expanded(
@@ -41,10 +41,9 @@ class TileOptionWidget extends StatelessWidget {
                             : message!,
                         textAlign: TextAlign.end,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 14.sp,
-                          fontFamily: 'sf medium',
+                        style: SfTextStyles.fontMedium(
                           color: MainColor.blackLight,
+                          fontSize: 14.sp,
                         ),
                       )
                     : const SizedBox(),

@@ -1,4 +1,5 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -25,25 +26,19 @@ class _ReadMoreWidgetState extends State<ReadMoreWidget> {
     return RichText(
       text: TextSpan(
         text: displayText,
-        style: TextStyle(
+        style: SfTextStyles.fontRegular(
           color: MainColor.darkGrey,
           fontSize: 13.sp,
-          fontFamily: 'sf reguler',
         ),
         children: [
           if (widget.text.length > widget.trimLength) TextSpan(
             text: _isExpanded ? ' Read Less' : ' Read More',
-            style: TextStyle(
+            style: SfTextStyles.fontRegular(
               color: MainColor.black,
               fontSize: 13.sp,
-              fontFamily: 'sf reguler',
             ),
             recognizer: TapGestureRecognizer()
-              ..onTap = () {
-                setState(() {
-                  _isExpanded = !_isExpanded;
-                });
-              },
+              ..onTap = () => setState(() => _isExpanded = !_isExpanded),
           ),
         ],
       ),

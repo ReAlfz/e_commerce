@@ -2,6 +2,7 @@ import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/cart_screen/controllers/cart_controller.dart';
 import 'package:e_commerce/features/cart_screen/views/components/quantity_widget.dart';
 import 'package:e_commerce/features/cart_screen/views/components/cart_checkbox_widget.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -76,8 +77,9 @@ class ListCartWidget extends StatelessWidget {
                               softWrap: true,
                               overflow: TextOverflow.ellipsis,
                               maxLines: 2,
-                              style: TextStyle(
-                                  fontSize: 13.sp, fontFamily: 'sf reguler'),
+                              style: SfTextStyles.fontRegular(
+                                fontSize: 13.sp,
+                              ),
                             ),
                           ),
                           Column(
@@ -91,9 +93,8 @@ class ListCartWidget extends StatelessWidget {
                                       symbol: 'Rp ',
                                       decimalDigits: 0,
                                     ).format(data.price),
-                                    style: TextStyle(
+                                    style: SfTextStyles.fontSemiBold(
                                       fontSize: 12.sp,
-                                      fontFamily: 'sf semi-bold',
                                     ),
                                   ),
                                   QuantityWidget(

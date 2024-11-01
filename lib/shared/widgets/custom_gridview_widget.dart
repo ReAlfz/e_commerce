@@ -1,6 +1,7 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
+import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -91,10 +92,9 @@ class CustomGridViewWidget extends StatelessWidget {
                     children: [
                       Text(
                         data.title,
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          fontFamily: 'sf medium',
+                        style: SfTextStyles.fontMedium(
                           fontWeight: FontWeight.w700,
+                          fontSize: 13.sp,
                         ),
                       ),
                       Text(
@@ -103,18 +103,12 @@ class CustomGridViewWidget extends StatelessWidget {
                           symbol: 'Rp ',
                           decimalDigits: 0,
                         ).format(data.price),
-                        style: TextStyle(
-                          fontSize: 13.sp,
-                          fontFamily: 'sf medium',
-                        ),
+                        style: SfTextStyles.fontRegular(fontSize: 13.sp),
                       ),
                       5.verticalSpace,
                       Text(
                         'Stock: ${data.stock}',
-                        style: TextStyle(
-                          fontSize: 11.sp,
-                          fontFamily: 'sf reguler',
-                        ),
+                        style: SfTextStyles.fontRegular(fontSize: 11.sp),
                       ),
                     ],
                   ),

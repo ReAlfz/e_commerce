@@ -1,3 +1,4 @@
+import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/detail_product_screen/controllers/detail_product_controller.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
@@ -20,7 +21,7 @@ class AppbarWidgetDetail extends StatelessWidget
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
-              onTap: DetailProductController.to.onBack,
+              onTap: Get.back,
               child: Container(
                 padding: EdgeInsets.all(4.r),
                 decoration: const BoxDecoration(
@@ -47,22 +48,20 @@ class AppbarWidgetDetail extends StatelessWidget
                       shape: BoxShape.circle,
                     ),
                     child: Obx(
-                          () => Icon(
+                      () => Icon(
                         (DetailProductController.to.productData.value!.favorite)
                             ? Icons.favorite
                             : Icons.favorite_outline,
                         size: 22.5.r,
-                        color:
-                        (DetailProductController.to.productData.value!.favorite)
+                        color: (DetailProductController
+                                .to.productData.value!.favorite)
                             ? MainColor.danger
                             : MainColor.black,
                       ),
                     ),
                   ),
                 ),
-
                 8.horizontalSpace,
-
                 GestureDetector(
                   onTap: DetailProductController.to.toCart,
                   child: Container(
@@ -71,10 +70,14 @@ class AppbarWidgetDetail extends StatelessWidget
                       color: MainColor.white,
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
-                      Icons.shopping_cart_outlined,
-                      size: 22.5.r,
-                      color: MainColor.secondaryDark,
+                    child: AddToCartIcon(
+                      key: DetailProductController.to.cartKey,
+                      badgeOptions: const BadgeOptions(active: false),
+                      icon: Icon(
+                        Icons.shopping_cart_outlined,
+                        size: 22.5.r,
+                        color: MainColor.secondaryDark,
+                      ),
                     ),
                   ),
                 ),
@@ -87,6 +90,5 @@ class AppbarWidgetDetail extends StatelessWidget
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(kToolbarHeight + 8.h);
 }
