@@ -1,6 +1,6 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
-import 'package:e_commerce/shared/widgets/custom_button.dart';
+import 'package:e_commerce/shared/widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
@@ -97,8 +97,9 @@ class ProductShimmerDetail extends StatelessWidget {
                   16.verticalSpace,
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: CustomButton(
+                    child: CustomButtonWidget(
                       title: 'Add to Cart',
+                      enabler: true,
                       onTap: () {},
                     ),
                   )

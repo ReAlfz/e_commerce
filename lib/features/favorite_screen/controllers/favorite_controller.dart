@@ -11,7 +11,9 @@ class FavoriteController extends GetxController {
 
   List<ProductModel> get filteredList => (filtered.value.isNotEmpty)
       ? favoriteList
-          .where((element) => element.title.toLowerCase().contains(filtered.value.toLowerCase()))
+          .where((element) => element.title
+              .toLowerCase()
+              .contains(filtered.value.toLowerCase()))
           .toList()
       : favoriteList;
 

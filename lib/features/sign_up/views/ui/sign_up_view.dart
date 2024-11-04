@@ -2,8 +2,8 @@ import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/sign_up/controllers/sign_up_controller.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:e_commerce/shared/widgets/custom_background.dart';
-import 'package:e_commerce/shared/widgets/custom_button.dart';
-import 'package:e_commerce/shared/widgets/custom_textfield.dart';
+import 'package:e_commerce/shared/widgets/custom_button_widget.dart';
+import 'package:e_commerce/shared/widgets/custom_textfield_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -105,8 +105,9 @@ class SignUpView extends StatelessWidget {
                             controller: SignUpController.to.passwordController,
                           ),
                           42.verticalSpace,
-                          CustomButton(
+                          CustomButtonWidget(
                             title: currentPage,
+                            enabler: true,
                             onTap: () => SignUpController.to.validateForm(context),
                           ),
                         ],

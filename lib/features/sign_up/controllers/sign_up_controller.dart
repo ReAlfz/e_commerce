@@ -32,6 +32,7 @@ class SignUpController extends GetxController {
         email: emailController.text,
         password: passwordController.text,
         country: '...',
+        pin: 000,
       );
 
       GlobalController.to.userData.add(data);

@@ -1,4 +1,4 @@
-import 'package:e_commerce/constants/cores/datas/dataset.dart';
+import 'package:add_to_cart_animation/add_to_cart_icon.dart';
 import 'package:e_commerce/features/cart_screen/models/cart_model.dart';
 import 'package:e_commerce/features/detail_product_screen/controllers/detail_product_controller.dart';
 import 'package:e_commerce/features/favorite_screen/controllers/favorite_controller.dart';
@@ -8,17 +8,24 @@ import 'package:e_commerce/features/home_screen/controllers/home_controller.dart
 import 'package:e_commerce/features/search_data_screen/controllers/search_data_controller.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:e_commerce/shared/global_models/user_model.dart';
+import 'package:e_commerce/shared/global_repositories/global_repository.dart';
 import 'package:e_commerce/utils/services/hive_service.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class GlobalController extends GetxController {
   static GlobalController get to => Get.find();
 
+  RxList<CartModel> cartListGlobal = <CartModel>[].obs;
+  List<UserModel> userData = <UserModel>[].obs;
+  Rxn<UserModel> user = Rxn<UserModel>();
+  List<ProductModel> productList = <ProductModel>[];
+  GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
+
   List<ProductModel> get sessionList {
     List<ProductModel> favoriteList = HiveService.getListFavorite() as List<ProductModel>;
     Set<int> favoriteId = favoriteList.map((item) => item.productId).toSet();
-    List<ProductModel> currentList = Dataset.list;
-    for (var item in currentList) {
+    for (var item in productList) {
       if (favoriteId.contains(item.productId)) {
         item.favorite = true;
       }
@@ -59,7 +66,6 @@ class GlobalController extends GetxController {
     HiveService.saveListFavorite(FavoriteController.to.favoriteList);
   }
 
-  List<CartModel> cartListGlobal = [];
   void updateCartListGlobal(CartModel data) {
     int cartIndex = cartListGlobal.indexWhere((element) =>
     element.productId == data.productId &&
@@ -72,12 +78,12 @@ class GlobalController extends GetxController {
     }
   }
 
-  List<UserModel> userData = <UserModel>[].obs;
-  Rxn<UserModel> user = Rxn<UserModel>();
   @override
-  void onInit() {
+  void onInit() async {
     user(HiveService.getUser());
     userData = HiveService.getListUser() as List<UserModel>;
+    productList = await GlobalRepository().getProducts();
+    productList.shuffle();
     super.onInit();
   }
 }

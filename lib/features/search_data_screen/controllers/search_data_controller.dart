@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:e_commerce/configs/routes/main_route.dart';
 import 'package:e_commerce/constants/cores/datas/dataset.dart';
+import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ class SearchDataController extends GetxController {
 
   @override
   void onInit() {
-    listSearch(Dataset.list);
+    listSearch(GlobalController.to.productList);
     super.onInit();
     Timer(
       const Duration(milliseconds: 300),

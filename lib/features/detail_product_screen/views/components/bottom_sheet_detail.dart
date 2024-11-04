@@ -3,7 +3,7 @@ import 'package:e_commerce/features/detail_product_screen/controllers/detail_pro
 import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:e_commerce/shared/global_models/variant_model.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
-import 'package:e_commerce/shared/widgets/custom_button.dart';
+import 'package:e_commerce/shared/widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -246,8 +246,9 @@ class BottomSheetDetail extends StatelessWidget {
             ),
           ],
           36.verticalSpace,
-          CustomButton(
+          CustomButtonWidget(
             title: 'Add to Cart',
+            enabler: true,
             onTap: () {
               DetailProductController.to.convertToCart();
               DetailProductController.to.runAnimationCartNow(

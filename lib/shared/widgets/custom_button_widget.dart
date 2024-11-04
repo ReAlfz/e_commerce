@@ -3,15 +3,16 @@ import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CustomButton extends StatelessWidget {
+class CustomButtonWidget extends StatelessWidget {
   final String title;
+  final bool enabler;
   final VoidCallback onTap;
-  const CustomButton({super.key, required this.title, required this.onTap});
+  const CustomButtonWidget({super.key, required this.title, required this.onTap, required this.enabler});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onTap,
+      onPressed: (enabler) ? onTap : null,
       style: ElevatedButton.styleFrom(
         backgroundColor: MainColor.primary,
         foregroundColor: MainColor.black,

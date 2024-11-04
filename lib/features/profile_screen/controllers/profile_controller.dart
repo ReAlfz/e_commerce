@@ -37,6 +37,7 @@ class ProfileController extends GetxController {
           if (data != null) {
             user(data as UserModel);
             photoState('data-hive');
+            GlobalController.to.user(data);
           }
         } catch (e, stackTrace) {
           log('Error in login with error: $e', name: 'Login');
@@ -48,7 +49,10 @@ class ProfileController extends GetxController {
       case MainRoute.signUp:
         try {
           final data = await Get.toNamed(MainRoute.signUp);
-          if (data != null) user(data as UserModel);
+          if (data != null) {
+            user(data as UserModel);
+            GlobalController.to.user(data);
+          }
         } catch (e, stackTrace) {
           log('Error in get result sign up with error: $e', name: 'Sign Up');
           log('Stack get result sign up trace: $stackTrace', name: 'Sign Up');
@@ -59,6 +63,7 @@ class ProfileController extends GetxController {
           HiveService.user.clear();
           user(user.value = null);
           photoState('no-data');
+          GlobalController.to.user(GlobalController.to.user.value = null);
           NavigationController.to.changePages(0);
         } catch (e, stackTrace) {
           log('Error in sign out with error: $e', name: 'Sign Out');
@@ -154,6 +159,9 @@ class ProfileController extends GetxController {
         case 'Password':
           user.value!.password = data as String;
           break;
+
+        case 'Pin':
+          user.value!.pin = data as int;
 
         default:
           break;

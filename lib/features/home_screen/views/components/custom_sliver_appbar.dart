@@ -1,6 +1,9 @@
+import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/home_screen/controllers/home_controller.dart';
+import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
+import 'package:e_commerce/shared/widgets/custom_cart_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -63,12 +66,12 @@ class CustomSliverAppBar extends StatelessWidget {
 
           if (!HomeController.to.focusNode.hasFocus) ...[
             10.horizontalSpace,
-            GestureDetector(
-              onTap: HomeController.to.toCart,
-              child: Icon(
-                Icons.shopping_cart_outlined,
-                color: MainColor.secondaryDark,
-                size: 25.r,
+            SizedBox(
+              height: 25.r,
+              width: 25.r,
+              child: GestureDetector(
+                onTap: HomeController.to.toCart,
+                child: const CustomCartIconWidget(),
               ),
             ),
           ],

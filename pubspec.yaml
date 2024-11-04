@@ -55,6 +55,7 @@ dependencies:
   path_provider: ^2.1.5
   sentry_flutter: ^8.9.0
   add_to_cart_animation: ^2.0.4
+  dio: ^5.7.0
 
 
 dev_dependencies:

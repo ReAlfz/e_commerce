@@ -1,8 +1,10 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/features/cart_screen/controllers/cart_controller.dart';
 import 'package:e_commerce/features/cart_screen/views/components/all_select_widget.dart';
 import 'package:e_commerce/features/cart_screen/views/components/cart_appbar_widget.dart';
 import 'package:e_commerce/features/cart_screen/views/components/list_cart_widget.dart';
-import 'package:e_commerce/shared/widgets/custom_button.dart';
+import 'package:e_commerce/features/cart_screen/views/components/price_widget.dart';
+import 'package:e_commerce/shared/widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -31,9 +33,13 @@ class CartView extends StatelessWidget {
             const Expanded(
               child: ListCartWidget(),
             ),
-            CustomButton(
-              title: 'Checkout',
-              onTap: (){},
+            const PriceWidget(),
+            CustomButtonWidget(
+              title: (CartController.to.buttonEnabler.value)
+                  ? 'Checkout'
+                  : 'You need login to Continue',
+              enabler: CartController.to.buttonEnabler.value,
+              onTap: CartController.to.checkOut,
             ),
           ],
         ),

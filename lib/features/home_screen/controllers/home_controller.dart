@@ -1,5 +1,6 @@
 import 'package:e_commerce/configs/routes/main_route.dart';
 import 'package:e_commerce/constants/cores/datas/dataset.dart';
+import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,9 +12,9 @@ class HomeController extends GetxController {
   FocusNode focusNode = FocusNode();
 
   @override
-  void onInit() {
+  void onInit() async {
     super.onInit();
-    listHome(Dataset.flashSaleHome);
+    listHome(GlobalController.to.productList.take(10).toList());
   }
 
   @override

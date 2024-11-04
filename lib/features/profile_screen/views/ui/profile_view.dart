@@ -45,33 +45,33 @@ class ProfileView extends StatelessWidget {
                   children: [
                     Obx(
                       () => ConditionalSwitch.single(
-                        context: context,
-                        valueBuilder: (context) => ProfileController.to.photoState.value,
-                        caseBuilders: {
-                          // 'data-session':,
-                          'data-file': (context) => Image.file(
-                            ProfileController.to.imageFile.value!,
-                            width: 170.r,
-                            height: 170.r,
-                            fit: BoxFit.cover,
-                          ),
-                          'data-hive': (context) => Image.file(
-                            File(ProfileController.to.user.value!.photo),
-                            width: 170.r,
-                            height: 170.r,
-                            fit: BoxFit.cover,
-                          ),
-                          'no-data': (context) => Container(
-                            color: MainColor.grey,
-                            child: Image.asset(
-                              ImageConstants.bgImage,
-                              width: 170.r,
-                              height: 170.r,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        }
-                      ),
+                          context: context,
+                          valueBuilder: (context) =>
+                              ProfileController.to.photoState.value,
+                          caseBuilders: {
+                            // 'data-session':,
+                            'data-file': (context) => Image.file(
+                                  ProfileController.to.imageFile.value!,
+                                  width: 170.r,
+                                  height: 170.r,
+                                  fit: BoxFit.cover,
+                                ),
+                            'data-hive': (context) => Image.file(
+                                  File(ProfileController.to.user.value!.photo),
+                                  width: 170.r,
+                                  height: 170.r,
+                                  fit: BoxFit.cover,
+                                ),
+                            'no-data': (context) => Container(
+                                  color: MainColor.grey,
+                                  child: Image.asset(
+                                    ImageConstants.bgImage,
+                                    width: 170.r,
+                                    height: 170.r,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                          }),
                     ),
                     Align(
                       alignment: Alignment.bottomCenter,
@@ -84,8 +84,10 @@ class ProfileView extends StatelessWidget {
                           child: Text(
                             'Change',
                             textAlign: TextAlign.center,
-                            style: SfTextStyles.fontMedium(color: MainColor.blackLight,
-                              fontSize: 13.sp,),
+                            style: SfTextStyles.fontMedium(
+                              color: MainColor.blackLight,
+                              fontSize: 13.sp,
+                            ),
                           ),
                         ),
                       ),
@@ -100,33 +102,46 @@ class ProfileView extends StatelessWidget {
                 children: [
                   TileOptionWidget(
                     title: 'Name',
-                    message: ProfileController.to.user.value?.name ?? 'username',
+                    message:
+                        ProfileController.to.user.value?.name ?? 'username',
                     onTap: () => ProfileController.to.changeData(code: 'Name'),
                   ),
                   TileOptionWidget(
                     title: 'Email',
-                    message: ProfileController.to.user.value?.email ?? 'email@xx.com',
+                    message: ProfileController.to.user.value?.email ??
+                        'email@xx.com',
                     onTap: () => ProfileController.to.changeData(code: 'Email'),
                   ),
                   TileOptionWidget(
                     title: 'Phone Number',
                     message: ProfileController.to.user.value?.phone ?? '...',
-                    onTap: () => ProfileController.to.changeData(code: 'Phone Number'),
+                    onTap: () =>
+                        ProfileController.to.changeData(code: 'Phone Number'),
                   ),
                   TileOptionWidget(
                     title: 'Address',
                     message: ProfileController.to.user.value?.address ?? '...',
-                    onTap: () => ProfileController.to.changeData(code: 'Address'),
+                    onTap: () =>
+                        ProfileController.to.changeData(code: 'Address'),
                   ),
                   TileOptionWidget(
                     title: 'Country',
                     message: ProfileController.to.user.value?.country ?? '...',
-                    onTap: () => ProfileController.to.changeData(code: 'Country'),
+                    onTap: () =>
+                        ProfileController.to.changeData(code: 'Country'),
+                  ),
+                  TileOptionWidget(
+                    title: 'Pin',
+                    message: ProfileController.to.user.value?.pin.toString() ??
+                        '...',
+                    isObscure: true,
+                    onTap: () => ProfileController.to.changeData(code: 'Pin'),
                   ),
                   TileOptionWidget(
                     title: 'Password',
                     message: ProfileController.to.user.value?.password ?? '...',
-                    onTap: () => ProfileController.to.changeData(code: 'Password'),
+                    onTap: () =>
+                        ProfileController.to.changeData(code: 'Password'),
                     isObscure: true,
                   ),
                 ],

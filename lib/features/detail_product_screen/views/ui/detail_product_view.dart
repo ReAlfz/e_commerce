@@ -6,8 +6,9 @@ import 'package:e_commerce/features/detail_product_screen/views/components/image
 import 'package:e_commerce/features/detail_product_screen/views/components/product_shimmer_detail.dart';
 import 'package:e_commerce/features/detail_product_screen/views/components/read_more_widget.dart';
 import 'package:e_commerce/features/detail_product_screen/views/components/review_widget.dart';
+import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
-import 'package:e_commerce/shared/widgets/custom_button.dart';
+import 'package:e_commerce/shared/widgets/custom_button_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,7 +21,7 @@ class DetailProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AddToCartAnimation(
-      cartKey: DetailProductController.to.cartKey,
+      cartKey: GlobalController.to.cartKey,
       height: 40.h,
       width: 40.w,
       dragAnimation: const DragToCartAnimationOptions(
@@ -29,10 +30,7 @@ class DetailProductView extends StatelessWidget {
       ),
       jumpAnimation: JumpAnimationOptions(
         duration: const Duration(milliseconds: 300),
-        active: (DetailProductController.to.productData.value!.variantColor !=
-                null ||
-            DetailProductController.to.productData.value!.variantSwitch !=
-                null) ? true : false,
+        active: DetailProductController.to.jumpOption(),
       ),
       createAddToCartAnimation: (runAnimation) {
         DetailProductController.to.runCartAnimation = runAnimation;
@@ -111,8 +109,9 @@ class DetailProductView extends StatelessWidget {
                           16.verticalSpace,
                           Align(
                             alignment: Alignment.bottomCenter,
-                            child: CustomButton(
+                            child: CustomButtonWidget(
                               title: 'Add to Cart',
+                              enabler: true,
                               onTap: DetailProductController.to.createOrder,
                             ),
                           ),

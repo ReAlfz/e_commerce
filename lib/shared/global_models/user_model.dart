@@ -21,6 +21,7 @@ class UserModel {
   @HiveField(7)
   String photo;
   @HiveField(8)
+  int pin;
 
   UserModel({
     required this.id_user,
@@ -29,6 +30,7 @@ class UserModel {
     required this.phone,
     required this.address,
     required this.email,
+    required this.pin,
     required this.password,
     required this.country,
   });

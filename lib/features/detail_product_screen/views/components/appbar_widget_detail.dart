@@ -2,6 +2,8 @@ import 'package:add_to_cart_animation/add_to_cart_animation.dart';
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/detail_product_screen/controllers/detail_product_controller.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
+import 'package:e_commerce/shared/widgets/custom_cart_icon_widget.dart';
+import 'package:e_commerce/shared/widgets/custom_favorite_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -48,15 +50,9 @@ class AppbarWidgetDetail extends StatelessWidget
                       shape: BoxShape.circle,
                     ),
                     child: Obx(
-                      () => Icon(
-                        (DetailProductController.to.productData.value!.favorite)
-                            ? Icons.favorite
-                            : Icons.favorite_outline,
-                        size: 22.5.r,
-                        color: (DetailProductController
-                                .to.productData.value!.favorite)
-                            ? MainColor.danger
-                            : MainColor.black,
+                      () => CustomFavoriteIconWidget(
+                        status: DetailProductController
+                            .to.productData.value!.favorite,
                       ),
                     ),
                   ),
@@ -71,13 +67,9 @@ class AppbarWidgetDetail extends StatelessWidget
                       shape: BoxShape.circle,
                     ),
                     child: AddToCartIcon(
-                      key: DetailProductController.to.cartKey,
+                      key: GlobalController.to.cartKey,
                       badgeOptions: const BadgeOptions(active: false),
-                      icon: Icon(
-                        Icons.shopping_cart_outlined,
-                        size: 22.5.r,
-                        color: MainColor.secondaryDark,
-                      ),
+                      icon: const CustomCartIconWidget(),
                     ),
                   ),
                 ),

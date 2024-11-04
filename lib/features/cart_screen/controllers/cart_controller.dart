@@ -7,12 +7,14 @@ class CartController extends GetxController {
   static CartController get to => Get.find();
 
   RxList<CartModel> cartList = <CartModel>[].obs;
+  RxBool buttonEnabler = false.obs;
   RxList<bool> checkItems = <bool>[].obs;
   RxBool selectAll = false.obs;
 
   @override
   void onInit() {
     cartList(GlobalController.to.cartListGlobal);
+    buttonEnabler((GlobalController.to.user.value != null) ? true : false);
     super.onInit();
   }
 
@@ -32,6 +34,16 @@ class CartController extends GetxController {
     selectAll.value = checkItems.every((item) => item);
   }
 
+  int get getTotalPrice {
+    List<CartModel> filterList = [];
+    for (int i = 0; i < cartList.length; i ++) {
+      if (checkItems[i]) filterList.add(cartList[i]);
+    }
+
+    int total = filterList.fold(0, (sum, item) => sum + item.price);
+    return total;
+  }
+
   void removeItemsSelected() {
     List<CartModel> filterCartList = [];
     for (int i = 0; i < cartList.length; i++) {
@@ -40,8 +52,9 @@ class CartController extends GetxController {
 
     cartList(filterCartList);
     checkItems(List<bool>.filled(cartList.length, false));
+    GlobalController.to.cartListGlobal(filterCartList);
+    selectAll(false);
   }
-
 
   void onIncrement(int index) {
     cartList[index].quantity++;
@@ -60,5 +73,13 @@ class CartController extends GetxController {
   void toDetail(int index) {
     final data =  cartList[index].product;
     Get.toNamed(MainRoute.detailProduct, arguments: data);
+  }
+  
+  void checkOut() {
+    if (getTotalPrice == 0) {
+      print('return');
+    } else {
+
+    }
   }
 }

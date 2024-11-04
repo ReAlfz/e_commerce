@@ -1,5 +1,5 @@
 import 'package:e_commerce/configs/routes/main_route.dart';
-import 'package:e_commerce/constants/cores/datas/dataset.dart';
+import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:get/get.dart';
 
@@ -9,8 +9,8 @@ class FlashSaleController extends GetxController {
   RxList<ProductModel> listFlash = <ProductModel>[].obs;
 
   @override
-  void onInit() {
-    listFlash(Dataset.flashSaleDetail);
+  void onInit() async {
+    listFlash(GlobalController.to.productList);
     super.onInit();
   }
 

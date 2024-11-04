@@ -2,6 +2,7 @@ import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
+import 'package:e_commerce/shared/widgets/custom_favorite_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -69,14 +70,8 @@ class CustomGridViewWidget extends StatelessWidget {
                               shape: BoxShape.circle,
                               color: MainColor.white,
                             ),
-                            child: Icon(
-                              (data.favorite)
-                                  ? Icons.favorite
-                                  : Icons.favorite_outline,
-                              color: (data.favorite)
-                                  ? MainColor.danger
-                                  : MainColor.darkGrey,
-                              size: 18.r,
+                            child: CustomFavoriteIconWidget(
+                              status: data.favorite,
                             ),
                           ),
                         ),
