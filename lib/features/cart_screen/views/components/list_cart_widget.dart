@@ -92,7 +92,7 @@ class ListCartWidget extends StatelessWidget {
                                       locale: 'id',
                                       symbol: 'Rp ',
                                       decimalDigits: 0,
-                                    ).format(data.price),
+                                    ).format(data.price * data.quantity),
                                     style: SfTextStyles.fontSemiBold(
                                       fontSize: 12.sp,
                                     ),

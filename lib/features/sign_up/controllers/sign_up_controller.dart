@@ -32,14 +32,13 @@ class SignUpController extends GetxController {
         email: emailController.text,
         password: passwordController.text,
         country: '...',
-        pin: 000,
+        pin: '...',
       );
 
       GlobalController.to.userData.add(data);
       GlobalController.to.user(data);
       HiveService.saveUser(data);
       HiveService.saveListUser(GlobalController.to.userData);
-      print(GlobalController.to.userData.length);
 
       Get.back(result: data);
     }

@@ -9,8 +9,9 @@ import 'package:e_commerce/features/profile_screen/views/components/profile_bott
 import 'package:e_commerce/features/sign_up/models/dropdown_model.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/user_model.dart';
+import 'package:e_commerce/shared/widgets/custom_pin_widget.dart';
 import 'package:e_commerce/utils/services/hive_service.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -128,59 +129,158 @@ class ProfileController extends GetxController {
     }
   }
 
+  final TextEditingController pinController = TextEditingController();
+  final RxBool obscure = RxBool(true);
+
   void changeData({required String code}) async {
-    final data = await Get.bottomSheet(
-      ProfileBottomSheet(title: code),
-      isDismissible: true,
-    );
-
-    if (data != null) {
-      switch (code) {
-        case 'Name':
+    switch (code) {
+      case 'Name':
+        final data = await Get.bottomSheet(
+          ProfileBottomSheet(
+            title: code,
+            minTextLength: 3,
+            hint: user.value!.name,
+            type: TextInputType.text,
+          ),
+          isDismissible: true,
+        );
+        if (data != null) {
           user.value!.name = data as String;
-          break;
+          updateHive();
+          user.refresh();
+        }
+        break;
 
-        case 'Email':
+      case 'Email':
+        final data = await Get.bottomSheet(
+          ProfileBottomSheet(
+            title: code,
+            minTextLength: 3,
+            hint: user.value!.email,
+            type: TextInputType.emailAddress,
+          ),
+          isDismissible: true,
+        );
+        if (data != null) {
           user.value!.email = data as String;
-          break;
+          updateHive();
+          user.refresh();
+        }
+        break;
 
-        case 'Phone Number':
+      case 'Phone Number':
+        final data = await Get.bottomSheet(
+          ProfileBottomSheet(
+            title: code,
+            minTextLength: 6,
+            hint: user.value!.phone,
+            type: TextInputType.phone,
+          ),
+          isDismissible: true,
+        );
+        if (data != null) {
           user.value!.phone = data as String;
-          break;
+          updateHive();
+          user.refresh();
+        }
+        break;
 
-        case 'Address':
+      case 'Address':
+        final data = await Get.bottomSheet(
+          ProfileBottomSheet(
+            title: code,
+            minTextLength: 3,
+            hint: (user.value!.address != '...') ? user.value!.address : '',
+            type: TextInputType.text,
+          ),
+          isDismissible: true,
+        );
+        if (data != null) {
           user.value!.address = data as String;
-          break;
+          updateHive();
+          user.refresh();
+        }
+        break;
 
-        case 'Country':
+      case 'Country':
+        final data = await Get.bottomSheet(
+          ProfileBottomSheet(
+            title: code,
+            minTextLength: 3,
+            hint: (user.value!.country != '...') ? user.value!.country : '',
+            type: TextInputType.text,
+          ),
+          isDismissible: true,
+        );
+        if (data != null) {
           user.value!.country = data as String;
-          break;
+          updateHive();
+          user.refresh();
+        }
+        break;
 
-        case 'Password':
+      case 'Password':
+        final data = await Get.bottomSheet(
+          ProfileBottomSheet(
+            title: code,
+            minTextLength: 3,
+            hint: user.value!.password,
+            type: TextInputType.text,
+          ),
+          isDismissible: true,
+        );
+        if (data != null) {
           user.value!.password = data as String;
-          break;
+          updateHive();
+          user.refresh();
+        }
+        break;
 
-        case 'Pin':
-          user.value!.pin = data as int;
+      case 'Pin':
+        final data = await Get.bottomSheet(
+          Container(
+            padding: const EdgeInsets.only(bottom: 16, top: 8),
+            decoration: const BoxDecoration(
+              color: MainColor.white,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(20),
+              ),
+            ),
+            child: CustomPinWidget(
+              title: 'Change Pin',
+              isObscure: obscure.value,
+              pinController: pinController,
+              onSubmit: (value) => Get.back(result: value),
+            ),
+          ),
+        );
+        if (data != null) {
+          user.value!.pin = data as String;
+          pinController.clear();
+          updateHive();
+          user.refresh();
+        }
+        break;
 
-        default:
-          break;
-      }
-      updateHive();
-      user.refresh();
+      default:
+        break;
     }
   }
 
   @override
   void onInit() {
     user(GlobalController.to.user.value);
-    if (GlobalController.to.user.value != null) photoState('data-hive');
+    if (GlobalController.to.user.value != null) {
+      (GlobalController.to.user.value!.photo != 'no-data')
+          ? photoState('data-hive')
+          : photoState('no-data');
+    }
     super.onInit();
   }
 
   void updateHive() {
     GlobalController.to.userData[GlobalController.to.userData.indexWhere(
-          (element) => element.id_user == user.value!.id_user,
+      (element) => element.id_user == user.value!.id_user,
     )] = user.value!;
     HiveService.saveUser(user.value!);
     HiveService.saveListUser(GlobalController.to.userData);

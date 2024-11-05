@@ -34,10 +34,6 @@ class GlobalController extends GetxController {
     return favoriteList;
   }
 
-  void saveList(List<ProductModel> favoriteList) {
-    HiveService.saveListFavorite(favoriteList);
-  }
-
   void saveFavoriteList(ProductModel data) {
     if (FavoriteController.to.favoriteList.contains(data)) {
       data.favorite = false;

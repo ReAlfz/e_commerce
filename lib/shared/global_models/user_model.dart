@@ -21,7 +21,7 @@ class UserModel {
   @HiveField(7)
   String photo;
   @HiveField(8)
-  int pin;
+  String pin;
 
   UserModel({
     required this.id_user,

@@ -6,14 +6,14 @@ class GlobalRepository {
   Future<List<ProductModel>> getProducts() async {
     Dio dio = Dio(
       BaseOptions(
-        baseUrl: 'https://run.mocky.io/v3/',
+        baseUrl: 'https://fd88ee49-56e4-4547-9d11-d66fda2f4071.mock.pstmn.io',
         contentType: 'application/json',
         responseType: ResponseType.json,
       ),
     );
 
     try {
-      const url = '54094c63-2b6a-4820-b9b8-c968b89d659f';
+      const url = '/products';
       final response = await dio.get(url);
       if (response.statusCode == 200) {
         Map<String, dynamic> responseData = response.data;

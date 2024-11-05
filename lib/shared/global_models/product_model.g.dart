@@ -29,7 +29,7 @@ class ProductModelAdapter extends TypeAdapter<ProductModel> {
       images: (fields[5] as List).cast<String>(),
       goodReview: fields[12] as num,
       numberChat: fields[13] as int,
-      rating: fields[10] as double,
+      rating: fields[10] as num,
       totalReview: fields[11] as int,
     );
   }

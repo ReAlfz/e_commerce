@@ -49,7 +49,6 @@ class ProfileView extends StatelessWidget {
                           valueBuilder: (context) =>
                               ProfileController.to.photoState.value,
                           caseBuilders: {
-                            // 'data-session':,
                             'data-file': (context) => Image.file(
                                   ProfileController.to.imageFile.value!,
                                   width: 170.r,

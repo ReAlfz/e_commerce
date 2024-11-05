@@ -18,7 +18,7 @@ class PriceWidget extends StatelessWidget {
               locale: 'id',
               symbol: 'Rp ',
               decimalDigits: 0,
-            ).format(CartController.to.getTotalPrice),
+            ).format(CartController.to.getTotalPrice.totalPrice),
           ),
         ),
       ],
