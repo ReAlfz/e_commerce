@@ -1,7 +1,7 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/sign_up/controllers/login_controller.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
-import 'package:e_commerce/shared/widgets/custom_background.dart';
+import 'package:e_commerce/features/sign_up/views/components/custom_background.dart';
 import 'package:e_commerce/shared/widgets/custom_button_widget.dart';
 import 'package:e_commerce/shared/widgets/custom_textfield_widget.dart';
 import 'package:flutter/material.dart';

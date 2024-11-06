@@ -35,6 +35,7 @@ class CartView extends StatelessWidget {
               child: ListCartWidget(),
             ),
             const PriceWidget(),
+            8.verticalSpace,
             CustomButtonWidget(
               title: (CartController.to.buttonEnabler.value)
                   ? 'Checkout'

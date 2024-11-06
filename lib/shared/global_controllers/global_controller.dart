@@ -6,6 +6,7 @@ import 'package:e_commerce/features/filter_list_category_view/controllers/filter
 import 'package:e_commerce/features/home_screen/controllers/flashsale_controller.dart';
 import 'package:e_commerce/features/home_screen/controllers/home_controller.dart';
 import 'package:e_commerce/features/search_data_screen/controllers/search_data_controller.dart';
+import 'package:e_commerce/shared/global_models/order_model.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:e_commerce/shared/global_models/user_model.dart';
 import 'package:e_commerce/shared/global_repositories/global_repository.dart';
@@ -20,6 +21,7 @@ class GlobalController extends GetxController {
   List<UserModel> userData = <UserModel>[].obs;
   Rxn<UserModel> user = Rxn<UserModel>();
   List<ProductModel> productList = <ProductModel>[];
+  List<OrderModel> orderList = <OrderModel>[];
   GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
 
   List<ProductModel> get sessionList {

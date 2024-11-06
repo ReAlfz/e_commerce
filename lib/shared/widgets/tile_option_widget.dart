@@ -7,21 +7,24 @@ class TileOptionWidget extends StatelessWidget {
   final String title;
   final bool? isObscure;
   final String? message;
+  final double padding;
   final VoidCallback? onTap;
 
-  const TileOptionWidget(
-      {super.key,
-      required this.title,
-      this.message,
-      this.onTap,
-      this.isObscure});
+  const TileOptionWidget({
+    super.key,
+    required this.title,
+    this.message,
+    this.onTap,
+    this.isObscure,
+    required this.padding,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 16.h),
+        padding: EdgeInsets.symmetric(vertical: padding),
         child: Row(
           children: [
             Text(

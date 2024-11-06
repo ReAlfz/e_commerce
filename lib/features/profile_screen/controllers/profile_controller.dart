@@ -285,5 +285,6 @@ class ProfileController extends GetxController {
     HiveService.saveUser(user.value!);
     HiveService.saveListUser(GlobalController.to.userData);
     GlobalController.to.user(user.value);
+    GlobalController.to.user.refresh();
   }
 }

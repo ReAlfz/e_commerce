@@ -4,7 +4,7 @@ import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/constants/cores/assets/image_constants.dart';
 import 'package:e_commerce/features/profile_screen/controllers/profile_controller.dart';
 import 'package:e_commerce/features/profile_screen/views/components/profile_appbar_widget.dart';
-import 'package:e_commerce/features/profile_screen/views/components/tile_option_widget.dart';
+import 'package:e_commerce/shared/widgets/tile_option_widget.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_conditional_rendering/conditional_switch.dart';
@@ -30,6 +30,7 @@ class ProfileView extends StatelessWidget {
           ),
         ),
         child: ListView(
+          physics: const BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(
             horizontal: 16.w,
             vertical: 24.h,
@@ -101,36 +102,42 @@ class ProfileView extends StatelessWidget {
                 children: [
                   TileOptionWidget(
                     title: 'Name',
+                    padding: 13.h,
                     message:
                         ProfileController.to.user.value?.name ?? 'username',
                     onTap: () => ProfileController.to.changeData(code: 'Name'),
                   ),
                   TileOptionWidget(
                     title: 'Email',
+                    padding: 13.h,
                     message: ProfileController.to.user.value?.email ??
                         'email@xx.com',
                     onTap: () => ProfileController.to.changeData(code: 'Email'),
                   ),
                   TileOptionWidget(
                     title: 'Phone Number',
+                    padding: 13.h,
                     message: ProfileController.to.user.value?.phone ?? '...',
                     onTap: () =>
                         ProfileController.to.changeData(code: 'Phone Number'),
                   ),
                   TileOptionWidget(
                     title: 'Address',
+                    padding: 13.h,
                     message: ProfileController.to.user.value?.address ?? '...',
                     onTap: () =>
                         ProfileController.to.changeData(code: 'Address'),
                   ),
                   TileOptionWidget(
                     title: 'Country',
+                    padding: 13.h,
                     message: ProfileController.to.user.value?.country ?? '...',
                     onTap: () =>
                         ProfileController.to.changeData(code: 'Country'),
                   ),
                   TileOptionWidget(
                     title: 'Pin',
+                    padding: 13.h,
                     message: ProfileController.to.user.value?.pin.toString() ??
                         '...',
                     isObscure: true,
@@ -138,6 +145,7 @@ class ProfileView extends StatelessWidget {
                   ),
                   TileOptionWidget(
                     title: 'Password',
+                    padding: 13.h,
                     message: ProfileController.to.user.value?.password ?? '...',
                     onTap: () =>
                         ProfileController.to.changeData(code: 'Password'),

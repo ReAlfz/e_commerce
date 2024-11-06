@@ -18,7 +18,7 @@ class AllSelectWidget extends StatelessWidget {
           children: [
             Obx(
               () => CartCheckBoxWidget(
-                onTap: (value) => CartController.to.checkAllItem(),
+                onTap: (value) => CartController.to.selectAllItem(),
                 isChecked: CartController.to.selectAll.value,
               ),
             ),
