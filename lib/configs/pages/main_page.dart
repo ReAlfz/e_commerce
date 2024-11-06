@@ -1,6 +1,8 @@
 import 'package:e_commerce/configs/routes/main_route.dart';
 import 'package:e_commerce/features/cart_screen/bindings/cart_binding.dart';
 import 'package:e_commerce/features/cart_screen/views/ui/cart_view.dart';
+import 'package:e_commerce/features/detail_order_screen/bindings/detail_order_binding.dart';
+import 'package:e_commerce/features/detail_order_screen/views/ui/detail_order_view.dart';
 import 'package:e_commerce/features/detail_product_screen/bindings/detail_product_binding.dart';
 import 'package:e_commerce/features/detail_product_screen/views/ui/detail_product_view.dart';
 import 'package:e_commerce/features/filter_list_category_view/bindings/filter_list_category_binding.dart';
@@ -78,6 +80,11 @@ class MainPage {
       binding: SignUpBinding(),
       transition: Transition.fadeIn,
       transitionDuration: const Duration(milliseconds: 200),
+    ),
+    GetPage(
+      name: MainRoute.detailOrder,
+      page: () => const DetailOrderView(),
+      binding: DetailOrderBinding(),
     ),
   ];
 }
