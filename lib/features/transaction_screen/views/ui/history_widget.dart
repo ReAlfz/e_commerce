@@ -1,6 +1,6 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/transaction_screen/controller/transaction_controller.dart';
-import 'package:e_commerce/features/transaction_screen/views/components/list_order.dart';
+import 'package:e_commerce/features/transaction_screen/views/components/transcation_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
@@ -20,7 +20,8 @@ class HistoryWidget extends StatelessWidget {
         ),
       ),
       child: Obx(
-        () => ListOrder(currentList: TransactionController.to.historyList),
+        () =>
+            TransactionList(currentList: TransactionController.to.historyList),
       ),
     );
   }

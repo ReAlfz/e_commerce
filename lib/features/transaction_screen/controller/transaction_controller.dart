@@ -2,6 +2,7 @@ import 'package:e_commerce/configs/routes/main_route.dart';
 import 'package:e_commerce/features/cart_screen/models/cart_model.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/order_model.dart';
+import 'package:e_commerce/utils/services/hive_service.dart';
 import 'package:get/get.dart';
 
 class TransactionController extends GetxController {
@@ -11,7 +12,7 @@ class TransactionController extends GetxController {
 
   @override
   void onInit() {
-    transactionList(GlobalController.to.orderList);
+    transactionList(GlobalController.to.transactionList);
     super.onInit();
   }
 
@@ -20,18 +21,32 @@ class TransactionController extends GetxController {
     Get.toNamed(MainRoute.cart);
   }
 
-  void toDetailOrder({required int index, required OrderModel data}) {
-    Get.toNamed(MainRoute.detailOrder, arguments: data);
+  void toDetailOrder({required int index, required OrderModel data}) async {
+    final newData = await Get.toNamed(MainRoute.detailOrder, arguments: data);
+    if (newData != null) {
+      int newIndex = transactionList.indexWhere((item) => item.id_order == newData['id']);
+      if (newIndex != -1) {
+        transactionList[newIndex].status = newData['status'];
+        print(transactionList[newIndex].price);
+        HiveService.saveListTransaction(transactionList);
+        transactionList.refresh();
+      }
+    }
+    print(historyList[0].status);
+    print(historyList[1].status);
   }
 
   /// Filter List ///
 
-  List<OrderModel> get onGoingList {
-    return transactionList.where((item) => item.status <= 1).toList();
+  RxList<OrderModel> get onGoingList {
+    return transactionList.where((item) => item.status <= 1).toList().obs;
   }
 
-  List<OrderModel> get historyList {
-    return transactionList.where((item) => item.status == 2 || item.status == 3).toList();
+  RxList<OrderModel> get historyList {
+    return transactionList
+        .where((item) => item.status == 2 || item.status == 3)
+        .toList()
+        .obs;
   }
 
   /// Function for get data card ///

@@ -7,6 +7,7 @@ import 'package:e_commerce/features/transaction_screen/controller/transaction_co
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/order_model.dart';
 import 'package:e_commerce/shared/widgets/custom_pin_widget.dart';
+import 'package:e_commerce/utils/services/hive_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -137,13 +138,13 @@ class CartController extends GetxController {
   }
 
   void convertToOrderModel() {
-    bool check = GlobalController.to.orderList.isNotEmpty;
+    bool check = GlobalController.to.transactionList.isNotEmpty;
     DateTime currentDate = DateTime.now();
     String formatDate = DateFormat('dd MMM yyyy').format(currentDate);
 
     OrderModel data = OrderModel(
       id_user: GlobalController.to.user.value!.id_user,
-      id_order: (check) ? GlobalController.to.orderList.last.id_user + 1 : 0,
+      id_order: (check) ? GlobalController.to.transactionList.last.id_order + 1 : 0,
       date: formatDate,
       methodPayment: 'COD',
       price: getTotalPrice.totalPrice,
@@ -152,7 +153,8 @@ class CartController extends GetxController {
       status: 0,
     );
 
-    GlobalController.to.orderList.add(data);
+    GlobalController.to.transactionList.add(data);
+    HiveService.saveListTransaction(GlobalController.to.transactionList);
     TransactionController.to.transactionList.refresh();
     Get.defaultDialog(
       title: '',

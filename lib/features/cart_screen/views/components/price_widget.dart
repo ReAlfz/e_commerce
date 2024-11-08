@@ -16,7 +16,7 @@ class PriceWidget extends StatelessWidget {
         TileOptionWidget(
           title: 'Address : ',
           padding: 2.5.h,
-          message: GlobalController.to.user.value!.address,
+          message: GlobalController.to.user.value?.address,
         ),
         Obx(
           () => TileOptionWidget(

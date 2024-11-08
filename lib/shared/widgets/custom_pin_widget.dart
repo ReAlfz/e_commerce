@@ -29,7 +29,8 @@ class _CustomPinWidgetState extends State<CustomPinWidget> {
       ),
     );
 
-    return Padding(
+    return Container(
+      color: MainColor.white,
       padding: EdgeInsets.symmetric(
         vertical: 8.h,
         horizontal: 12.w,

@@ -81,7 +81,7 @@ class DetailProductController extends GetxController {
     }
     Timer(
       const Duration(milliseconds: 400),
-          () => state(true),
+      () => state(true),
     );
     super.onInit();
   }

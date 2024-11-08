@@ -17,37 +17,35 @@ class CategoryAppbarWidget extends StatelessWidget
       child: Container(
         padding: EdgeInsets.fromLTRB(16.w, 16.r, 16.w, 0),
         decoration: BoxDecoration(
-            color: MainColor.white,
-            borderRadius: BorderRadius.vertical(
-              bottom: Radius.circular(25.r),
-            )),
+          color: MainColor.white,
+          borderRadius: BorderRadius.vertical(
+            bottom: Radius.circular(25.r),
+          ),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.w),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: FilterListCategoryController.to.onBack,
-                    child: Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      size: 20.r,
-                      color: MainColor.darkGrey,
-                    ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: FilterListCategoryController.to.onBack,
+                  child: Icon(
+                    Icons.chevron_left_rounded,
+                    size: 30.r,
+                    color: MainColor.darkGrey,
                   ),
-                  Text(
-                    title,
-                    style: SfTextStyles.fontBold(
-                      color: MainColor.black,
-                      fontSize: 20.sp,
-                    ),
+                ),
+                Text(
+                  title,
+                  style: SfTextStyles.fontBold(
+                    color: MainColor.black,
+                    fontSize: 20.sp,
                   ),
-                  SizedBox(width: 20.r),
-                ],
-              ),
+                ),
+                SizedBox(width: 30.r),
+              ],
             ),
             16.verticalSpace,
             SizedBox(

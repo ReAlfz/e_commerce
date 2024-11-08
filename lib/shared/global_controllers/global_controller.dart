@@ -21,7 +21,7 @@ class GlobalController extends GetxController {
   List<UserModel> userData = <UserModel>[].obs;
   Rxn<UserModel> user = Rxn<UserModel>();
   List<ProductModel> productList = <ProductModel>[];
-  List<OrderModel> orderList = <OrderModel>[];
+  List<OrderModel> transactionList = <OrderModel>[];
   GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
 
   List<ProductModel> get sessionList {
@@ -81,6 +81,7 @@ class GlobalController extends GetxController {
     user(HiveService.getUser());
     userData = HiveService.getListUser() as List<UserModel>;
     productList = await GlobalRepository().getProducts();
+    transactionList = HiveService.getListTransaction() as List<OrderModel>;
     productList.shuffle();
     super.onInit();
   }

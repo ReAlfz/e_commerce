@@ -31,7 +31,7 @@ class AppbarWidgetDetail extends StatelessWidget
                   shape: BoxShape.circle,
                 ),
                 child: Icon(
-                  size: 28.r,
+                  size: 30.r,
                   color: MainColor.black,
                   Icons.chevron_left_rounded,
                 ),
