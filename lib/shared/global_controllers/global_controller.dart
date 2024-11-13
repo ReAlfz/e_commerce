@@ -1,4 +1,5 @@
 import 'package:add_to_cart_animation/add_to_cart_icon.dart';
+import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/cart_screen/models/cart_model.dart';
 import 'package:e_commerce/features/detail_product_screen/controllers/detail_product_controller.dart';
 import 'package:e_commerce/features/favorite_screen/controllers/favorite_controller.dart';
@@ -37,6 +38,17 @@ class GlobalController extends GetxController {
   }
 
   void saveFavoriteList(ProductModel data) {
+    if (user.value == null) {
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: 'You need login for add product to favorite',
+          icon: Icon(Icons.warning_amber_outlined, size: 20, color: MainColor.white),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      return;
+    }
+
     if (FavoriteController.to.favoriteList.contains(data)) {
       data.favorite = false;
       FavoriteController.to.favoriteList.remove(data);

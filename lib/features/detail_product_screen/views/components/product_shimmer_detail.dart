@@ -99,7 +99,6 @@ class ProductShimmerDetail extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: CustomButtonWidget(
                       title: 'Add to Cart',
-                      enabler: true,
                       onTap: () {},
                     ),
                   )

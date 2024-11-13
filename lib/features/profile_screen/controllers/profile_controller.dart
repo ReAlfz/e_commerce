@@ -6,10 +6,8 @@ import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/navigation/controllers/navigation_controller.dart';
 import 'package:e_commerce/features/profile_screen/views/components/image_picker_dialog.dart';
 import 'package:e_commerce/features/profile_screen/views/components/profile_bottom_sheet.dart';
-import 'package:e_commerce/features/sign_up/models/dropdown_model.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/user_model.dart';
-import 'package:e_commerce/shared/widgets/custom_pin_widget.dart';
 import 'package:e_commerce/utils/services/hive_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,56 +19,25 @@ class ProfileController extends GetxController {
   static ProfileController get to => Get.find();
 
   final Rx<File?> imageFile = Rx<File?>(null);
-  RxString photoState = 'no-data'.obs;
+  RxString photoState = ''.obs;
   Rxn<UserModel> user = Rxn<UserModel>();
 
-  final List<DropdownModel> dropdownList = [
-    DropdownModel(title: 'Log In', route: MainRoute.login),
-    DropdownModel(title: 'Sign Up', route: MainRoute.signUp),
-    DropdownModel(title: 'Sign Out', route: ''),
-  ];
+  void pushToLogin() async {
+    final dataUser = await Get.toNamed(MainRoute.sign);
+    if (dataUser != null) {
+      user(dataUser['value'] as UserModel);
+      GlobalController.to.user(dataUser);
 
-  void toPush(String? value) async {
-    switch (value) {
-      case MainRoute.login:
-        try {
-          final data = await Get.toNamed(MainRoute.login);
-          if (data != null) {
-            user(data as UserModel);
-            photoState('data-hive');
-            GlobalController.to.user(data);
-          }
-        } catch (e, stackTrace) {
-          log('Error in login with error: $e', name: 'Login');
-          log('Stack login trace: $stackTrace', name: 'Login');
-        }
-
-        break;
-
-      case MainRoute.signUp:
-        try {
-          final data = await Get.toNamed(MainRoute.signUp);
-          if (data != null) {
-            user(data as UserModel);
-            GlobalController.to.user(data);
-          }
-        } catch (e, stackTrace) {
-          log('Error in get result sign up with error: $e', name: 'Sign Up');
-          log('Stack get result sign up trace: $stackTrace', name: 'Sign Up');
-        }
-
-      default:
-        try {
-          HiveService.user.clear();
-          user(user.value = null);
-          photoState('no-data');
-          GlobalController.to.user(GlobalController.to.user.value = null);
-          NavigationController.to.changePages(0);
-        } catch (e, stackTrace) {
-          log('Error in sign out with error: $e', name: 'Sign Out');
-          log('Stack sign out trace: $stackTrace', name: 'Sign Out');
-        }
+      if (dataUser['key'] == 'sign_up') changeData(code: 'Pin');
     }
+  }
+
+  void signOut() {
+    HiveService.user.clear();
+    user(user.value = null);
+    GlobalController.to.user(GlobalController.to.user.value = null);
+    NavigationController.to.changePages(0);
+    // HiveService.listUser.clear();
   }
 
   Future<void> pickImage() async {
@@ -219,47 +186,14 @@ class ProfileController extends GetxController {
         }
         break;
 
-      case 'Password':
-        final data = await Get.bottomSheet(
-          ProfileBottomSheet(
-            title: code,
-            minTextLength: 3,
-            hint: user.value!.password,
-            type: TextInputType.text,
-          ),
-          isDismissible: true,
-        );
-        if (data != null) {
-          user.value!.password = data as String;
-          updateHive();
-          user.refresh();
-        }
-        break;
-
       case 'Pin':
-        final data = await Get.bottomSheet(
-          Container(
-            padding: const EdgeInsets.only(bottom: 16, top: 8),
-            decoration: const BoxDecoration(
-              color: MainColor.white,
-              borderRadius: BorderRadius.vertical(
-                top: Radius.circular(20),
-              ),
-            ),
-            child: CustomPinWidget(
-              title: 'Change Pin',
-              isObscure: obscure.value,
-              pinController: pinController,
-              onSubmit: (value) => Get.back(result: value),
-            ),
-          ),
+        final data = await Get.generalDialog(
+          barrierDismissible: true,
+          barrierLabel: '',
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return Container();
+          },
         );
-        if (data != null) {
-          user.value!.pin = data as String;
-          pinController.clear();
-          updateHive();
-          user.refresh();
-        }
         break;
 
       default:

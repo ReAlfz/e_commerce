@@ -15,8 +15,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class DetailProductView extends StatelessWidget {
+class DetailProductView extends StatefulWidget {
   const DetailProductView({super.key});
+
+  @override
+  State<DetailProductView> createState() => _DetailProductViewState();
+}
+
+class _DetailProductViewState extends State<DetailProductView> {
+  GlobalKey imageBottomSheetKey = GlobalKey();
+  GlobalKey imageKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +54,11 @@ class DetailProductView extends StatelessWidget {
                 DetailProductController.to.state.value,
             fallbackBuilder: (context) => const ProductShimmerDetail(),
             widgetBuilder: (context) {
+              final data = DetailProductController.to.productData.value!;
               return CustomScrollView(
                 slivers: [
-                  const SliverToBoxAdapter(
-                    child: ImageSliderWidget(),
+                  SliverToBoxAdapter(
+                    child: ImageSliderWidget(imageKey: imageKey),
                   ),
                   SliverFillRemaining(
                     hasScrollBody: false,
@@ -69,14 +78,14 @@ class DetailProductView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            DetailProductController.to.productData.value!.title,
+                            data.title,
                             style: SfTextStyles.fontMedium(
                               color: MainColor.black,
                               fontSize: 21.sp,
                             ),
                           ),
                           8.verticalSpace,
-                          const ReviewWidget(),
+                          ReviewWidget(data: data),
                           16.verticalSpace,
                           Container(
                             width: 1.sw,
@@ -100,19 +109,19 @@ class DetailProductView extends StatelessWidget {
                               ),
                             ),
                           ),
-                          16.verticalSpace,
-                          ReadMoreWidget(
-                            text: DetailProductController
-                                .to.productData.value!.description,
-                          ),
+                          8.verticalSpace,
+                          ReadMoreWidget(text: data.description),
                           const Spacer(),
                           16.verticalSpace,
                           Align(
                             alignment: Alignment.bottomCenter,
                             child: CustomButtonWidget(
                               title: 'Add to Cart',
-                              enabler: true,
-                              onTap: DetailProductController.to.createOrder,
+                              onTap: () =>
+                                  DetailProductController.to.createOrder(
+                                imageKey: imageKey,
+                                imageBottomSheetKey: imageBottomSheetKey,
+                              ),
                             ),
                           ),
                         ],

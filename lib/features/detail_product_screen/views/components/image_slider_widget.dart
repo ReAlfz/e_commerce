@@ -7,7 +7,8 @@ import 'package:get/get.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class ImageSliderWidget extends StatelessWidget {
-  const ImageSliderWidget({super.key});
+  final GlobalKey imageKey;
+  const ImageSliderWidget({super.key, required this.imageKey});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class ImageSliderWidget extends StatelessWidget {
           children: [
             Container(
               color: Colors.transparent,
-              key: DetailProductController.to.imageKey,
+              key: imageKey,
               padding: EdgeInsets.only(bottom: 0.085.sh),
               child: CarouselSlider.builder(
                 itemCount:

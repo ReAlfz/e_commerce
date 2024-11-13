@@ -23,24 +23,27 @@ class _ReadMoreWidgetState extends State<ReadMoreWidget> {
         ? widget.text
         : '${widget.text.substring(0, widget.trimLength)}...';
 
-    return RichText(
-      text: TextSpan(
-        text: displayText,
-        style: SfTextStyles.fontRegular(
-          color: MainColor.darkGrey,
-          fontSize: 13.sp,
-        ),
-        children: [
-          if (widget.text.length > widget.trimLength) TextSpan(
-            text: _isExpanded ? ' Read Less' : ' Read More',
-            style: SfTextStyles.fontRegular(
-              color: MainColor.black,
-              fontSize: 13.sp,
-            ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => setState(() => _isExpanded = !_isExpanded),
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 6.w),
+      child: RichText(
+        text: TextSpan(
+          text: displayText,
+          style: SfTextStyles.fontRegular(
+            color: MainColor.darkGrey,
+            fontSize: 13.sp,
           ),
-        ],
+          children: [
+            if (widget.text.length > widget.trimLength) TextSpan(
+              text: _isExpanded ? ' Read Less' : ' Read More',
+              style: SfTextStyles.fontRegular(
+                color: MainColor.black,
+                fontSize: 13.sp,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => setState(() => _isExpanded = !_isExpanded),
+            ),
+          ],
+        ),
       ),
     );
   }

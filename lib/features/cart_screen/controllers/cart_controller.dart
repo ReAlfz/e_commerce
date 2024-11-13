@@ -3,6 +3,7 @@ import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/cart_screen/models/cart_model.dart';
 import 'package:e_commerce/features/cart_screen/models/price_truple.dart';
 import 'package:e_commerce/features/cart_screen/views/components/order_success_dialog.dart';
+import 'package:e_commerce/features/navigation/controllers/navigation_controller.dart';
 import 'package:e_commerce/features/transaction_screen/controller/transaction_controller.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/order_model.dart';
@@ -16,20 +17,23 @@ class CartController extends GetxController {
   static CartController get to => Get.find();
 
   RxList<CartModel> cartList = <CartModel>[].obs;
-  RxBool buttonEnabler = false.obs;
   RxList<bool> checkItems = <bool>[].obs;
   RxBool selectAll = false.obs;
 
   @override
   void onInit() {
     cartList(GlobalController.to.cartListGlobal);
-    buttonEnabler((GlobalController.to.user.value != null) ? true : false);
+    checkItems(List<bool>.filled(cartList.length, false));
     super.onInit();
   }
 
   CartController() {
-    cartList.listen((_) {
-      checkItems(List<bool>.filled(cartList.length, false));
+    ever(cartList, (_) {
+      if (checkItems.length < cartList.length) {
+        checkItems.addAll(List<bool>.filled(cartList.length - checkItems.length, false));
+      }
+      if (cartList.isEmpty) selectAll(false);
+      checkItems.refresh();
     });
   }
 
@@ -60,14 +64,12 @@ class CartController extends GetxController {
     }
 
     cartList(filterCartList);
-    checkItems(List<bool>.filled(cartList.length, false));
+    checkItems(List<bool>.filled(filterCartList.length, false));
     GlobalController.to.cartListGlobal(filterCartList);
-    selectAll(false);
   }
 
   void onIncrement(int index) {
     cartList[index].quantity++;
-    selectAll.value = false;
     cartList.refresh();
   }
 
@@ -77,7 +79,6 @@ class CartController extends GetxController {
     } else {
       cartList[index].quantity--;
     }
-    selectAll.value = false;
     cartList.refresh();
   }
 
@@ -94,6 +95,20 @@ class CartController extends GetxController {
   int tries = 0;
   
   void checkOut() async {
+    if (GlobalController.to.user.value == null) {
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: 'You need login for checkout product',
+          icon: Icon(Icons.warning_amber_outlined, size: 20, color: MainColor.white),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+      Get.until((route) => route.settings.name == MainRoute.home);
+      NavigationController.to.changePages(3);
+      return;
+    }
+    
     if (getTotalPrice.totalPrice == 0) {
       Get.showSnackbar(
         const GetSnackBar(

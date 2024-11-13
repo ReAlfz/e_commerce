@@ -5,14 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CustomButtonWidget extends StatelessWidget {
   final String title;
-  final bool enabler;
   final VoidCallback onTap;
-  const CustomButtonWidget({super.key, required this.title, required this.onTap, required this.enabler});
+  const CustomButtonWidget({super.key, required this.title, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: (enabler) ? onTap : null,
+      onPressed: onTap,
       style: ElevatedButton.styleFrom(
         backgroundColor: MainColor.primary,
         foregroundColor: MainColor.black,

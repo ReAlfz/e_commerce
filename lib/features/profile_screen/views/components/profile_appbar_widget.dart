@@ -26,51 +26,11 @@ class ProfileAppbarWidget extends StatelessWidget
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Hero(
-              tag: 'sign',
-              child: Material(
-                color: Colors.transparent,
-                child: Text(
-                  'Account',
-                  style: SfTextStyles.fontBold(
-                    color: MainColor.black,
-                    fontSize: 20.sp,
-                  ),
-                ),
-              ),
-            ),
-            DropdownButtonHideUnderline(
-              child: DropdownButton2(
-                isDense: true,
-                customButton: Icon(
-                  Icons.more_horiz,
-                  color: MainColor.secondaryDark,
-                  size: 25.r,
-                ),
-                onChanged: (value) => ProfileController.to.toPush(value),
-                items: ProfileController.to.dropdownList.map((item) {
-                  return DropdownMenuItem(
-                    value: item.route,
-                    child: Text(
-                      item.title,
-                      style: SfTextStyles.fontMedium(
-                        color: MainColor.blackLight,
-                        fontSize: 14.sp,
-                      ),
-                    ),
-                  );
-                }).toList(),
-                dropdownStyleData: DropdownStyleData(
-                  width: 100.w,
-                  elevation: 1,
-                  padding: EdgeInsets.symmetric(vertical: 8.r),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15.r),
-                    color: Colors.white,
-                  ),
-                  offset: const Offset(0, 8),
-                  maxHeight: 200,
-                ),
+            Text(
+              'Account',
+              style: SfTextStyles.fontBold(
+                color: MainColor.black,
+                fontSize: 20.sp,
               ),
             ),
           ],

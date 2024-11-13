@@ -18,8 +18,6 @@ class DetailProductController extends GetxController {
   RxInt colorIndex = 0.obs;
   RxInt switchIndex = 0.obs;
 
-  GlobalKey imageBottomSheetKey = GlobalKey();
-  GlobalKey imageKey = GlobalKey();
   late Function(GlobalKey) runCartAnimation;
 
   void runAnimationCartNow(GlobalKey key) async {
@@ -34,7 +32,10 @@ class DetailProductController extends GetxController {
     colorIndex(colorIdx);
   }
 
-  void createOrder() async {
+  void createOrder({
+    required GlobalKey imageBottomSheetKey,
+    required GlobalKey imageKey,
+  }) async {
     if (productData.value!.variantColor != null ||
         productData.value!.variantSwitch != null) {
       Get.bottomSheet(
@@ -42,6 +43,7 @@ class DetailProductController extends GetxController {
           productModel: productData.value!,
           color: productData.value?.variantColor,
           switchOption: productData.value?.variantSwitch,
+          imageBottomSheetKey: imageBottomSheetKey,
         ),
       );
     } else {
@@ -100,7 +102,7 @@ class DetailProductController extends GetxController {
     price(totalPrice);
   }
 
-  void toCart() => Get.toNamed(MainRoute.cart);
+  void toCart() => Get.offNamed(MainRoute.cart);
 
   bool jumpOption() {
     if (productData.value!.variantColor != null ||

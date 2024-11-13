@@ -1,8 +1,10 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/search_data_screen/controllers/search_data_controller.dart';
+import 'package:e_commerce/features/search_data_screen/views/components/no_search_widget.dart';
 import 'package:e_commerce/features/search_data_screen/views/components/search_appbar_widget.dart';
 import 'package:e_commerce/shared/widgets/custom_gridview_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_conditional_rendering/flutter_conditional_rendering.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +16,7 @@ class SearchDataView extends StatelessWidget {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: MainColor.grey,
         appBar: SearchAppbarWidget(
           onChange: (value) => SearchDataController.to.filtered(value),
@@ -30,10 +33,18 @@ class SearchDataView extends StatelessWidget {
             ),
           ),
           child: Obx(
-            () => CustomGridViewWidget(
-              list: SearchDataController.to.filteredList,
-              onTap: SearchDataController.to.toDetail,
-              aspectRatio: 0.6,
+            () => Conditional.single(
+              context: context,
+              conditionBuilder: (context) =>
+                  SearchDataController.to.searchState.value,
+              fallbackBuilder: (context) => const NoSearchWidget(),
+              widgetBuilder: (context) => Obx(
+                () => CustomGridViewWidget(
+                  list: SearchDataController.to.filteredList,
+                  onTap: SearchDataController.to.toDetail,
+                  aspectRatio: 0.6,
+                ),
+              ),
             ),
           ),
         ),

@@ -37,10 +37,7 @@ class CartView extends StatelessWidget {
             const PriceWidget(),
             8.verticalSpace,
             CustomButtonWidget(
-              title: (CartController.to.buttonEnabler.value)
-                  ? 'Checkout'
-                  : 'You need login to Continue',
-              enabler: CartController.to.buttonEnabler.value,
+              title: 'Checkout',
               onTap: CartController.to.checkOut,
             ),
           ],

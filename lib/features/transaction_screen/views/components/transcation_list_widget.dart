@@ -8,10 +8,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class TransactionList extends StatelessWidget {
+class TransactionListWidget extends StatelessWidget {
   final List<OrderModel> currentList;
 
-  const TransactionList({super.key, required this.currentList});
+  const TransactionListWidget({super.key, required this.currentList});
 
   @override
   Widget build(BuildContext context) {

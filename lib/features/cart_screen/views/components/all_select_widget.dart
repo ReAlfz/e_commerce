@@ -31,14 +31,15 @@ class AllSelectWidget extends StatelessWidget {
             ),
           ],
         ),
-        Obx(() {
-          return AnimatedSwitcher(
+        Obx(
+          () => AnimatedSwitcher(
             duration: const Duration(milliseconds: 200),
             transitionBuilder: (child, animation) => ScaleTransition(
               scale: animation,
               child: child,
             ),
-            child: (CartController.to.checkItems.contains(true))
+            child: (CartController.to.checkItems.contains(true) &&
+                    CartController.to.checkItems.isNotEmpty)
                 ? GestureDetector(
                     onTap: CartController.to.removeItemsSelected,
                     child: Icon(
@@ -50,8 +51,8 @@ class AllSelectWidget extends StatelessWidget {
                 : SizedBox(
                     height: 22.5.r,
                   ),
-          );
-        }),
+          ),
+        ),
       ],
     );
   }
