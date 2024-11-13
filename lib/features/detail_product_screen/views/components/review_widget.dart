@@ -1,5 +1,4 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
-import 'package:e_commerce/features/detail_product_screen/controllers/detail_product_controller.dart';
 import 'package:e_commerce/features/detail_product_screen/views/components/border_container_item.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
