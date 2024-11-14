@@ -15,6 +15,7 @@ class ProfileView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: MainColor.grey,
+      resizeToAvoidBottomInset: false,
       appBar: const ProfileAppbarWidget(),
       body: Container(
         height: 1.sh,

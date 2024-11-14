@@ -14,25 +14,40 @@ class PriceWidget extends StatelessWidget {
     return Column(
       children: [
         TileOptionWidget(
-          title: 'Address : ',
+          title: 'Voucher : ',
           padding: 2.5.h,
-          message: GlobalController.to.user.value?.address,
+          message: 'Use Voucher',
+          onTap: CartController.to.toVoucher,
         ),
         Obx(
-          () => TileOptionWidget(
-            title: 'Total Price : ',
-            padding: 2.5.h,
-            message: NumberFormat.currency(
-              locale: 'id',
-              symbol: 'Rp ',
-              decimalDigits: 0,
-            ).format(CartController.to.getTotalPrice.totalPrice),
+          () => Padding(
+            padding: EdgeInsets.only(right: 8.w),
+            child: TileOptionWidget(
+              title: 'Total Price : ',
+              padding: 2.5.h,
+              message: NumberFormat.currency(
+                locale: 'id',
+                symbol: 'Rp ',
+                decimalDigits: 0,
+              ).format(CartController.to.getTotalPrice.totalPrice),
+            ),
           ),
         ),
-        TileOptionWidget(
-          title: 'Payment method : ',
-          padding: 2.5.h,
-          message: 'Cash on Delivery',
+        Padding(
+          padding: EdgeInsets.only(right: 8.w),
+          child: TileOptionWidget(
+            title: 'Address : ',
+            padding: 2.5.h,
+            message: GlobalController.to.user.value?.address,
+          ),
+        ),
+        Padding(
+          padding: EdgeInsets.only(right: 8.w),
+          child: TileOptionWidget(
+            title: 'Payment method : ',
+            padding: 2.5.h,
+            message: 'Cash on Delivery',
+          ),
         ),
       ],
     );

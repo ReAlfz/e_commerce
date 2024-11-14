@@ -11,6 +11,7 @@ class SearchDataController extends GetxController {
 
   RxString filtered = ''.obs;
   RxList<ProductModel> listSearch = <ProductModel>[].obs;
+  TextEditingController textEditingController = TextEditingController();
   FocusNode focusNode = FocusNode();
 
   RxList<ProductModel> get filteredList => (filtered.value.isNotEmpty)

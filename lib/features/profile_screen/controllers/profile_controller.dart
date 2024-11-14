@@ -1,11 +1,16 @@
+import 'dart:async';
 import 'dart:developer';
 import 'dart:io';
 
 import 'package:e_commerce/configs/routes/main_route.dart';
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/features/favorite_screen/controllers/favorite_controller.dart';
 import 'package:e_commerce/features/navigation/controllers/navigation_controller.dart';
 import 'package:e_commerce/features/profile_screen/views/components/image_picker_dialog.dart';
 import 'package:e_commerce/features/profile_screen/views/components/profile_bottom_sheet.dart';
+import 'package:e_commerce/features/profile_screen/views/components/verify_password_widget.dart';
+import 'package:e_commerce/features/profile_screen/views/components/verify_pin_widget.dart';
+import 'package:e_commerce/features/transaction_screen/controller/transaction_controller.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/user_model.dart';
 import 'package:e_commerce/utils/services/hive_service.dart';
@@ -23,12 +28,19 @@ class ProfileController extends GetxController {
   Rxn<UserModel> user = Rxn<UserModel>();
 
   void pushToLogin() async {
-    final dataUser = await Get.toNamed(MainRoute.sign);
-    if (dataUser != null) {
-      user(dataUser['value'] as UserModel);
-      GlobalController.to.user(dataUser);
+    final data = await Get.toNamed(MainRoute.sign);
+    if (data != null) {
+      UserModel userData = data['value'] as UserModel;
+      String userKey = data['key'] as String;
+      user(userData);
+      GlobalController.to.user(userData);
 
-      if (dataUser['key'] == 'sign_up') changeData(code: 'Pin');
+      if (userKey == 'sign_up') {
+        Timer(
+          const Duration(milliseconds: 400),
+          () => changeData(code: 'Pin'),
+        );
+      }
     }
   }
 
@@ -36,6 +48,13 @@ class ProfileController extends GetxController {
     HiveService.user.clear();
     user(user.value = null);
     GlobalController.to.user(GlobalController.to.user.value = null);
+
+    TransactionController.to.transactionList.clear();
+    GlobalController.to.transactionList.clear();
+    HiveService.listTransaction.clear();
+
+    FavoriteController.to.favoriteList.clear();
+
     NavigationController.to.changePages(0);
     // HiveService.listUser.clear();
   }
@@ -187,13 +206,36 @@ class ProfileController extends GetxController {
         break;
 
       case 'Pin':
-        final data = await Get.generalDialog(
+        final data = await Get.defaultDialog(
+          title: '',
           barrierDismissible: true,
-          barrierLabel: '',
-          pageBuilder: (context, animation, secondaryAnimation) {
-            return Container();
-          },
+          backgroundColor: MainColor.white,
+          contentPadding: EdgeInsets.zero,
+          titleStyle: const TextStyle(fontSize: 0),
+          content: VerifyPinWidget(pinValue: user.value!.pin),
         );
+        if (data != null) {
+          user.value!.pin = data as String;
+          updateHive();
+          user.refresh();
+        }
+        break;
+
+      case 'Password':
+        final data = await Get.defaultDialog(
+          title: '',
+          barrierDismissible: true,
+          backgroundColor: MainColor.white,
+          contentPadding: EdgeInsets.zero,
+          titleStyle: const TextStyle(fontSize: 0),
+          content: VerifyPasswordWidget(password: user.value!.password),
+        );
+
+        if (data != null) {
+          user.value!.password = data as String;
+          updateHive();
+          user.refresh();
+        }
         break;
 
       default:

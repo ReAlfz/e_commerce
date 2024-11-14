@@ -7,9 +7,18 @@ import 'package:pinput/pinput.dart';
 class CustomPinWidget extends StatefulWidget {
   final String title;
   final Function(String? value) onSubmit;
-  final TextEditingController pinController;
+  final TextEditingController? pinController;
+  final FocusNode? focusNode;
   final bool isObscure;
-  const CustomPinWidget({super.key, required this.title, required this.onSubmit, required this.pinController, required this.isObscure});
+
+  const CustomPinWidget({
+    super.key,
+    required this.title,
+    required this.onSubmit,
+    required this.isObscure,
+    this.pinController,
+    this.focusNode,
+  });
 
   @override
   State<CustomPinWidget> createState() => _CustomPinWidgetState();
@@ -25,7 +34,7 @@ class _CustomPinWidgetState extends State<CustomPinWidget> {
       margin: EdgeInsets.symmetric(horizontal: 3.w),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8.r),
-        border: Border.all(color: MainColor.blackLight)
+        border: Border.all(color: MainColor.blackLight),
       ),
     );
 
@@ -50,11 +59,12 @@ class _CustomPinWidgetState extends State<CustomPinWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Expanded(
-                child:Pinput(
+                child: Pinput(
                   controller: widget.pinController,
                   showCursor: false,
                   length: 6,
                   autofocus: true,
+                  focusNode: widget.focusNode,
                   keyboardType: TextInputType.number,
                   closeKeyboardWhenCompleted: false,
                   defaultPinTheme: pinTheme,

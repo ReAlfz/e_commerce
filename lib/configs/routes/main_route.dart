@@ -9,5 +9,6 @@ class MainRoute {
   static const String search = '/search';
   static const String cart = '/cart';
   static const String detailOrder = '/detail-order';
+  static const String voucher = '/voucher';
   static const String sign = '/sign';
 }

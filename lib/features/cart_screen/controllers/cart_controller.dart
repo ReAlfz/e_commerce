@@ -4,6 +4,7 @@ import 'package:e_commerce/features/cart_screen/models/cart_model.dart';
 import 'package:e_commerce/features/cart_screen/models/price_truple.dart';
 import 'package:e_commerce/features/cart_screen/views/components/order_success_dialog.dart';
 import 'package:e_commerce/features/navigation/controllers/navigation_controller.dart';
+import 'package:e_commerce/features/profile_screen/controllers/profile_controller.dart';
 import 'package:e_commerce/features/transaction_screen/controller/transaction_controller.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/order_model.dart';
@@ -29,9 +30,6 @@ class CartController extends GetxController {
 
   CartController() {
     ever(cartList, (_) {
-      if (checkItems.length < cartList.length) {
-        checkItems.addAll(List<bool>.filled(cartList.length - checkItems.length, false));
-      }
       if (cartList.isEmpty) selectAll(false);
       checkItems.refresh();
     });
@@ -106,6 +104,13 @@ class CartController extends GetxController {
 
       Get.until((route) => route.settings.name == MainRoute.home);
       NavigationController.to.changePages(3);
+      return;
+    }
+
+    if (GlobalController.to.user.value!.address == '...') {
+      Get.until((route) => route.settings.name == MainRoute.home);
+      NavigationController.to.changePages(3);
+      ProfileController.to.changeData(code: 'Address');
       return;
     }
     
@@ -183,5 +188,9 @@ class CartController extends GetxController {
   void offAllRoute() {
     GlobalController.to.cartListGlobal.clear();
     Get.until((route) => route.settings.name == MainRoute.home);
+  }
+
+  void toVoucher() {
+    Get.toNamed(MainRoute.voucher);
   }
 }

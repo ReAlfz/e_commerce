@@ -1,19 +1,19 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
-import 'package:e_commerce/features/favorite_screen/controllers/favorite_controller.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
-import 'package:e_commerce/shared/widgets/custom_cart_icon_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class FavoriteAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
-  final ValueChanged<String>? onChange;
-  const FavoriteAppbarWidget({super.key, required this.onChange});
+class VoucherAppbarWidget extends StatelessWidget
+    implements PreferredSizeWidget {
+  final ValueChanged<String>? onChanged;
+  const VoucherAppbarWidget({super.key, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Container(
-        padding: EdgeInsets.fromLTRB(16.w, 16.h, 16.w, 0),
+        padding: EdgeInsets.fromLTRB(10.w, 0, 10.w, 0),
         decoration: BoxDecoration(
           color: MainColor.white,
           borderRadius: BorderRadius.vertical(
@@ -21,32 +21,37 @@ class FavoriteAppbarWidget extends StatelessWidget implements PreferredSizeWidge
           ),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 8.w),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    'Favorite',
-                    style: SfTextStyles.fontBold(
-                      color: MainColor.black,
-                      fontSize: 20.sp,
-                    ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                GestureDetector(
+                  onTap: Get.back,
+                  child: Icon(
+                    Icons.chevron_left_rounded,
+                    color: MainColor.blackLight,
+                    size: 30.r,
                   ),
-                  GestureDetector(
-                    onTap: FavoriteController.to.toCart,
-                    child: const CustomCartIconWidget(),
+                ),
+
+                Text(
+                  'Select Voucher',
+                  textAlign: TextAlign.center,
+                  style: SfTextStyles.fontBold(
+                    color: MainColor.blackLight,
+                    fontSize: 20.sp,
                   ),
-                ],
-              ),
+                ),
+
+                SizedBox(width: 20.r),
+              ],
             ),
             8.verticalSpace,
             SizedBox(
               height: 40.h,
               child: TextField(
-                onChanged: onChange,
+                onChanged: onChanged,
                 style: SfTextStyles.fontRegular(fontSize: 14.sp),
                 textAlign: TextAlign.start,
                 decoration: InputDecoration(
@@ -57,7 +62,7 @@ class FavoriteAppbarWidget extends StatelessWidget implements PreferredSizeWidge
                   ),
                   filled: true,
                   fillColor: MainColor.grey,
-                  hintText: 'Search your favorite',
+                  hintText: 'Search voucher available',
                   hintStyle: SfTextStyles.fontRegular(
                     color: Colors.grey[400]!,
                     fontSize: 14.sp,
@@ -77,5 +82,6 @@ class FavoriteAppbarWidget extends StatelessWidget implements PreferredSizeWidge
   }
 
   @override
+  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(0.15.sh);
 }

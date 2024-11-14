@@ -19,6 +19,8 @@ import 'package:e_commerce/features/sign_up/bindings/sign_binding.dart';
 import 'package:e_commerce/features/sign_up/views/ui/sign_view.dart';
 import 'package:e_commerce/features/splash_screen/bindings/splash_binding.dart';
 import 'package:e_commerce/features/splash_screen/views/ui/splash_view.dart';
+import 'package:e_commerce/features/voucher_screen/bindings/voucher_binding.dart';
+import 'package:e_commerce/features/voucher_screen/views/ui/voucher_view.dart';
 import 'package:get/get.dart';
 
 class MainPage {
@@ -74,6 +76,11 @@ class MainPage {
       name: MainRoute.detailOrder,
       page: () => const DetailOrderView(),
       binding: DetailOrderBinding(),
+    ),
+    GetPage(
+      name: MainRoute.voucher,
+      page: () => const VoucherView(),
+      binding: VoucherBinding(),
     ),
   ];
 }

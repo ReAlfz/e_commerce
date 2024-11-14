@@ -3,9 +3,12 @@ import 'package:e_commerce/features/search_data_screen/controllers/search_data_c
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 
-class SearchAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
+class SearchAppbarWidget extends StatelessWidget
+    implements PreferredSizeWidget {
   final ValueChanged<String>? onChange;
+
   const SearchAppbarWidget({super.key, this.onChange});
 
   @override
@@ -39,6 +42,7 @@ class SearchAppbarWidget extends StatelessWidget implements PreferredSizeWidget 
                 color: Colors.transparent,
                 child: TextField(
                   focusNode: SearchDataController.to.focusNode,
+                  controller: SearchDataController.to.textEditingController,
                   onChanged: onChange,
                   style: TextStyle(
                     fontSize: 14.sp,
@@ -49,6 +53,22 @@ class SearchAppbarWidget extends StatelessWidget implements PreferredSizeWidget 
                       Icons.search_outlined,
                       color: Colors.grey[400],
                       size: 22.r,
+                    ),
+                    suffixIcon: Obx(
+                      () => GestureDetector(
+                        onTap: () {
+                          SearchDataController.to.filtered.value = '';
+                          SearchDataController.to.textEditingController.clear();
+                        },
+                        child:
+                            (SearchDataController.to.filtered.value.isNotEmpty)
+                                ? Icon(
+                                    Icons.cancel,
+                                    color: MainColor.darkGrey,
+                                    size: 14.r,
+                                  )
+                                : const SizedBox(),
+                      ),
                     ),
                     filled: true,
                     fillColor: MainColor.grey,
