@@ -1,4 +1,5 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
+import 'package:e_commerce/features/voucher_screen/controllers/voucher_controller.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 class VoucherAppbarWidget extends StatelessWidget
     implements PreferredSizeWidget {
   final ValueChanged<String>? onChanged;
+
   const VoucherAppbarWidget({super.key, this.onChanged});
 
   @override
@@ -34,7 +36,6 @@ class VoucherAppbarWidget extends StatelessWidget
                     size: 30.r,
                   ),
                 ),
-
                 Text(
                   'Select Voucher',
                   textAlign: TextAlign.center,
@@ -43,7 +44,6 @@ class VoucherAppbarWidget extends StatelessWidget
                     fontSize: 20.sp,
                   ),
                 ),
-
                 SizedBox(width: 20.r),
               ],
             ),
@@ -54,11 +54,27 @@ class VoucherAppbarWidget extends StatelessWidget
                 onChanged: onChanged,
                 style: SfTextStyles.fontRegular(fontSize: 14.sp),
                 textAlign: TextAlign.start,
+                controller: VoucherController.to.textEditingController,
                 decoration: InputDecoration(
                   prefixIcon: Icon(
                     Icons.search_outlined,
                     color: Colors.grey[400],
                     size: 22.r,
+                  ),
+                  suffixIcon: Obx(
+                    () => GestureDetector(
+                      onTap: () {
+                        VoucherController.to.filtered.value = '';
+                        VoucherController.to.textEditingController.clear();
+                      },
+                      child: (VoucherController.to.filtered.value.isNotEmpty)
+                          ? Icon(
+                              Icons.cancel,
+                              color: MainColor.darkGrey,
+                              size: 14.r,
+                            )
+                          : const SizedBox(),
+                    ),
                   ),
                   filled: true,
                   fillColor: MainColor.grey,
@@ -82,6 +98,5 @@ class VoucherAppbarWidget extends StatelessWidget
   }
 
   @override
-  // TODO: implement preferredSize
   Size get preferredSize => Size.fromHeight(0.15.sh);
 }

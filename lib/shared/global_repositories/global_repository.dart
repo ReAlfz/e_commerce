@@ -15,7 +15,6 @@ class GlobalRepository {
           responseData['products'].map((x) => ProductModel.fromJson(x)),
         ).toList();
       }
-
     } catch (e, stackTrace) {
       await Sentry.captureException(e, stackTrace: stackTrace);
     }
@@ -29,11 +28,15 @@ class GlobalRepository {
       const url = '/vouchers';
       final response = await dio.get(url);
       if (response.statusCode == 200) {
-
+        Map<String, dynamic> responseData = response.data;
+        return List<VoucherModel>.from(
+          responseData['vouchers'].map((x) => VoucherModel.fromJson(x)),
+        );
       }
     } catch (e, stackTrace) {
       await Sentry.captureException(e, stackTrace: stackTrace);
     }
+
     return [];
   }
 }

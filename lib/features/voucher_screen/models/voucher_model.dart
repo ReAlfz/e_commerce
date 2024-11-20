@@ -4,12 +4,14 @@ class VoucherModel {
   String title;
   String termCondition;
   int price;
+  String periode;
   int? maxPrice;
   String description;
 
   VoucherModel({
     required this.title,
     required this.price,
+    required this.periode,
     required this.description,
     required this.termCondition,
     this.maxPrice,
@@ -20,6 +22,7 @@ class VoucherModel {
       return VoucherModel(
         title: json['title'],
         price: json['price'],
+        periode: json['periode'],
         maxPrice: json['max_price'] ?? 0,
         description: json['description'],
         termCondition: json['termCondition'],

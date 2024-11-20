@@ -69,6 +69,7 @@ class DetailProductController extends GetxController {
       variantSwitch: (productData.value!.variantSwitch != null)
           ? productData.value!.variantSwitch![switchIndex.value].name
           : null,
+      stock: productData.value!.stock,
     );
     GlobalController.to.updateCartListGlobal(data);
   }

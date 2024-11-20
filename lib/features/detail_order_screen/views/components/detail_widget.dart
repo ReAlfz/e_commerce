@@ -18,7 +18,8 @@ class DetailWidget extends StatelessWidget {
             locale: 'id',
             symbol: 'Rp ',
             decimalDigits: 0,
-          ).format(DetailOrderController.to.orderData.value!.price),
+          ).format(DetailOrderController.to.orderData.value!.price *
+              DetailOrderController.to.orderData.value!.quantity),
         ),
         TileOptionWidget(
           title: 'Payment method',

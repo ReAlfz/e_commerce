@@ -7,6 +7,7 @@ import 'package:e_commerce/features/filter_list_category_view/controllers/filter
 import 'package:e_commerce/features/home_screen/controllers/flashsale_controller.dart';
 import 'package:e_commerce/features/home_screen/controllers/home_controller.dart';
 import 'package:e_commerce/features/search_data_screen/controllers/search_data_controller.dart';
+import 'package:e_commerce/features/voucher_screen/models/voucher_model.dart';
 import 'package:e_commerce/shared/global_models/order_model.dart';
 import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:e_commerce/shared/global_models/user_model.dart';
@@ -19,14 +20,18 @@ class GlobalController extends GetxController {
   static GlobalController get to => Get.find();
 
   RxList<CartModel> cartListGlobal = <CartModel>[].obs;
-  List<UserModel> userData = <UserModel>[].obs;
   Rxn<UserModel> user = Rxn<UserModel>();
-  List<ProductModel> productList = <ProductModel>[];
-  List<OrderModel> transactionList = <OrderModel>[];
+
   GlobalKey<CartIconKey> cartKey = GlobalKey<CartIconKey>();
 
+  List<VoucherModel> voucherList = <VoucherModel>[];
+  List<UserModel> userData = <UserModel>[];
+  List<ProductModel> productList = <ProductModel>[];
+  RxList<OrderModel> transactionList = <OrderModel>[].obs;
+
   List<ProductModel> get sessionList {
-    List<ProductModel> favoriteList = HiveService.getListFavorite() as List<ProductModel>;
+    List<ProductModel> favoriteList =
+        HiveService.getListFavorite() as List<ProductModel>;
     Set<int> favoriteId = favoriteList.map((item) => item.productId).toSet();
     for (var item in productList) {
       if (favoriteId.contains(item.productId)) {
@@ -42,7 +47,8 @@ class GlobalController extends GetxController {
       Get.showSnackbar(
         const GetSnackBar(
           message: 'You need login for add product to favorite',
-          icon: Icon(Icons.warning_amber_outlined, size: 20, color: MainColor.white),
+          icon: Icon(Icons.warning_amber_outlined,
+              size: 20, color: MainColor.white),
           duration: Duration(seconds: 2),
         ),
       );
@@ -78,7 +84,7 @@ class GlobalController extends GetxController {
 
   void updateCartListGlobal(CartModel data) {
     int cartIndex = cartListGlobal.indexWhere((element) =>
-    element.productId == data.productId &&
+        element.productId == data.productId &&
         element.variantColor == data.variantColor &&
         element.variantSwitch == data.variantSwitch);
     if (cartIndex != -1) {
@@ -93,7 +99,8 @@ class GlobalController extends GetxController {
     user(HiveService.getUser());
     userData = HiveService.getListUser() as List<UserModel>;
     productList = await GlobalRepository().getProducts();
-    transactionList = HiveService.getListTransaction() as List<OrderModel>;
+    voucherList = await GlobalRepository().getVoucher();
+    transactionList(HiveService.getListTransaction() as List<OrderModel>);
     productList.shuffle();
     super.onInit();
   }

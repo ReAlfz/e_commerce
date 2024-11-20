@@ -2,14 +2,14 @@ import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class CartCheckBoxWidget extends StatelessWidget {
+class VoucherCheckboxWidget extends StatelessWidget {
   final bool isChecked;
   final ValueChanged<bool> onTap;
 
-  const CartCheckBoxWidget({
+  const VoucherCheckboxWidget({
     super.key,
-    required this.onTap,
     required this.isChecked,
+    required this.onTap,
   });
 
   @override
@@ -25,7 +25,7 @@ class CartCheckBoxWidget extends StatelessWidget {
             color: isChecked ? MainColor.secondary : MainColor.darkGrey,
             width: 2.0,
           ),
-          borderRadius: BorderRadius.circular(5.r),
+          shape: BoxShape.circle,
         ),
         width: 18.r,
         height: 18.r,

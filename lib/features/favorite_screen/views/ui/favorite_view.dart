@@ -34,7 +34,7 @@ class FavoriteView extends StatelessWidget {
           child: Conditional.single(
             context: context,
             conditionBuilder: (context) =>
-                FavoriteController.to.filtered.value.isNotEmpty,
+                FavoriteController.to.filteredList.isNotEmpty,
             fallbackBuilder: (context) => const NoFavoriteWidget(),
             widgetBuilder: (context) => Obx(
               () => CustomGridViewWidget(

@@ -140,7 +140,7 @@ class TransactionListWidget extends StatelessWidget {
                                 locale: 'id',
                                 symbol: 'Rp ',
                                 decimalDigits: 0,
-                              ).format(data.price),
+                              ).format(data.price * data.quantity),
                               style: SfTextStyles.fontMedium(
                                 color: MainColor.blackLight,
                                 fontSize: 14.sp,

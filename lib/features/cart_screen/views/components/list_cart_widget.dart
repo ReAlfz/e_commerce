@@ -1,7 +1,7 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/cart_screen/controllers/cart_controller.dart';
-import 'package:e_commerce/features/cart_screen/views/components/quantity_widget.dart';
 import 'package:e_commerce/features/cart_screen/views/components/cart_checkbox_widget.dart';
+import 'package:e_commerce/features/cart_screen/views/components/quantity_widget.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +31,7 @@ class ListCartWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Obx(
-                        () => CartCheckBoxWidget(
+                    () => CartCheckBoxWidget(
                       isChecked: CartController.to.checkItems[index],
                       onTap: (value) => CartController.to.checkItemList(index),
                     ),

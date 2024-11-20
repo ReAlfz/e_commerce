@@ -13,11 +13,13 @@ class PriceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        TileOptionWidget(
-          title: 'Voucher : ',
-          padding: 2.5.h,
-          message: 'Use Voucher',
-          onTap: CartController.to.toVoucher,
+        Obx(
+          () => TileOptionWidget(
+            title: 'Voucher : ',
+            padding: 2.5.h,
+            message: CartController.to.voucherMessage.value,
+            onTap: CartController.to.toVoucher,
+          ),
         ),
         Obx(
           () => Padding(
@@ -29,7 +31,7 @@ class PriceWidget extends StatelessWidget {
                 locale: 'id',
                 symbol: 'Rp ',
                 decimalDigits: 0,
-              ).format(CartController.to.getTotalPrice.totalPrice),
+              ).format(CartController.to.grandPrice.value),
             ),
           ),
         ),
