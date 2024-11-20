@@ -3,7 +3,10 @@ import 'package:e_commerce/configs/themes/main_colors.dart';
 import 'package:e_commerce/features/cart_screen/models/cart_model.dart';
 import 'package:e_commerce/features/cart_screen/models/price_truple.dart';
 import 'package:e_commerce/features/cart_screen/views/components/order_success_dialog.dart';
+import 'package:e_commerce/features/navigation/controllers/navigation_controller.dart';
+import 'package:e_commerce/features/profile_screen/controllers/profile_controller.dart';
 import 'package:e_commerce/features/transaction_screen/controller/transaction_controller.dart';
+import 'package:e_commerce/features/voucher_screen/models/voucher_model.dart';
 import 'package:e_commerce/shared/global_controllers/global_controller.dart';
 import 'package:e_commerce/shared/global_models/order_model.dart';
 import 'package:e_commerce/shared/widgets/custom_pin_widget.dart';
@@ -16,40 +19,48 @@ class CartController extends GetxController {
   static CartController get to => Get.find();
 
   RxList<CartModel> cartList = <CartModel>[].obs;
-  RxBool buttonEnabler = false.obs;
   RxList<bool> checkItems = <bool>[].obs;
   RxBool selectAll = false.obs;
+  RxInt grandPrice = 0.obs;
+  RxString voucherMessage = 'Use Voucher'.obs;
 
   @override
   void onInit() {
     cartList(GlobalController.to.cartListGlobal);
-    buttonEnabler((GlobalController.to.user.value != null) ? true : false);
+    checkItems(List<bool>.filled(cartList.length, false));
     super.onInit();
   }
 
   CartController() {
-    cartList.listen((_) {
-      checkItems(List<bool>.filled(cartList.length, false));
+    ever(checkItems, (_) => voucherMessage('Use Voucher'));
+    ever(cartList, (_) {
+      if (cartList.isEmpty) selectAll(false);
+      checkItems.refresh();
     });
   }
 
-  void selectAllItem(){
+  void selectAllItem() {
     selectAll.value = !selectAll.value;
     checkItems(List<bool>.filled(cartList.length, selectAll.value));
+    grandPrice(getTotalPrice.totalPrice);
+    if (!checkItems.contains(true)) voucherMessage('Use Voucher');
   }
 
   void checkItemList(int index) {
     checkItems[index] = !checkItems[index];
     selectAll.value = checkItems.every((item) => item);
+    grandPrice(getTotalPrice.totalPrice);
+    if (!checkItems.contains(true)) voucherMessage('Use Voucher');
   }
 
   PriceTruple get getTotalPrice {
     List<CartModel> filterList = [];
-    for (int i = 0; i < cartList.length; i ++) {
+    for (int i = 0; i < cartList.length; i++) {
       if (checkItems[i]) filterList.add(cartList[i]);
     }
 
-    int total = filterList.fold(0, (sum, item) => sum + item.price * item.quantity);
+    int total =
+        filterList.fold(0, (sum, item) => sum + item.price * item.quantity);
     return PriceTruple(totalPrice: total, listItem: filterList);
   }
 
@@ -60,14 +71,25 @@ class CartController extends GetxController {
     }
 
     cartList(filterCartList);
-    checkItems(List<bool>.filled(cartList.length, false));
+    checkItems(List<bool>.filled(filterCartList.length, false));
+    grandPrice(0);
     GlobalController.to.cartListGlobal(filterCartList);
-    selectAll(false);
   }
 
   void onIncrement(int index) {
-    cartList[index].quantity++;
-    selectAll.value = false;
+    if (cartList[index].stock > cartList[index].quantity) {
+      cartList[index].quantity++;
+      grandPrice(getTotalPrice.totalPrice);
+    } else {
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: "it's max product",
+          icon: Icon(Icons.warning_amber_outlined,
+              size: 20, color: MainColor.white),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
     cartList.refresh();
   }
 
@@ -77,12 +99,12 @@ class CartController extends GetxController {
     } else {
       cartList[index].quantity--;
     }
-    selectAll.value = false;
+    grandPrice(getTotalPrice.totalPrice);
     cartList.refresh();
   }
 
   void toDetail(int index) {
-    final data =  cartList[index].product;
+    final data = cartList[index].product;
     Get.toNamed(MainRoute.detailProduct, arguments: data);
   }
 
@@ -92,13 +114,36 @@ class CartController extends GetxController {
   final pinController = TextEditingController();
   final RxnString errorText = RxnString();
   int tries = 0;
-  
+
   void checkOut() async {
+    if (GlobalController.to.user.value == null) {
+      Get.showSnackbar(
+        const GetSnackBar(
+          message: 'You need login for checkout product',
+          icon: Icon(Icons.warning_amber_outlined,
+              size: 20, color: MainColor.white),
+          duration: Duration(seconds: 2),
+        ),
+      );
+
+      Get.until((route) => route.settings.name == MainRoute.home);
+      NavigationController.to.changePages(3);
+      return;
+    }
+
+    if (GlobalController.to.user.value!.address == '...') {
+      Get.until((route) => route.settings.name == MainRoute.home);
+      NavigationController.to.changePages(3);
+      ProfileController.to.changeData(code: 'Address');
+      return;
+    }
+
     if (getTotalPrice.totalPrice == 0) {
       Get.showSnackbar(
         const GetSnackBar(
           message: 'Please select the product for checkout',
-          icon: Icon(Icons.warning_amber_outlined, size: 20, color: MainColor.white),
+          icon: Icon(Icons.warning_amber_outlined,
+              size: 20, color: MainColor.white),
           duration: Duration(seconds: 2),
         ),
       );
@@ -116,7 +161,7 @@ class CartController extends GetxController {
       ),
     );
 
-    if (data) convertToOrderModel();
+    if (data != null) convertToOrderModel();
   }
 
   Future<void> processPin(String? pin) async {
@@ -144,10 +189,11 @@ class CartController extends GetxController {
 
     OrderModel data = OrderModel(
       id_user: GlobalController.to.user.value!.id_user,
-      id_order: (check) ? GlobalController.to.transactionList.last.id_order + 1 : 0,
+      id_order:
+          (check) ? GlobalController.to.transactionList.last.id_order + 1 : 0,
       date: formatDate,
       methodPayment: 'COD',
-      price: getTotalPrice.totalPrice,
+      price: grandPrice.value,
       quantity: getTotalPrice.listItem.length,
       listProduct: getTotalPrice.listItem,
       status: 0,
@@ -155,7 +201,8 @@ class CartController extends GetxController {
 
     GlobalController.to.transactionList.add(data);
     HiveService.saveListTransaction(GlobalController.to.transactionList);
-    TransactionController.to.transactionList.refresh();
+    // TransactionController.to.transactionList.add(data);
+    // TransactionController.to.transactionList.refresh();
     Get.defaultDialog(
       title: '',
       titleStyle: const TextStyle(fontSize: 0),
@@ -168,5 +215,46 @@ class CartController extends GetxController {
   void offAllRoute() {
     GlobalController.to.cartListGlobal.clear();
     Get.until((route) => route.settings.name == MainRoute.home);
+  }
+
+  void toVoucher() async {
+    final data = await Get.toNamed(MainRoute.voucher);
+    if (data != null) {
+      if (checkItems.contains(true)) {
+        VoucherModel voucherData = data as VoucherModel;
+        if (voucherData.maxPrice != 0) {
+          int discount = getTotalPrice.totalPrice * voucherData.price ~/ 100;
+          discount = (discount < voucherData.maxPrice!)
+              ? discount
+              : voucherData.maxPrice!;
+          grandPrice(grandPrice.value  - discount);
+          voucherMessage(
+            'Potongan Rp ${NumberFormat.currency(
+              decimalDigits: 0,
+              symbol: 'Rp ',
+              locale: 'id',
+            ).format(discount)}',
+          );
+        } else {
+          grandPrice(grandPrice.value - voucherData.price);
+          voucherMessage(
+            'Potongan Rp ${NumberFormat.currency(
+              decimalDigits: 0,
+              symbol: 'Rp ',
+              locale: 'id',
+            ).format(voucherData.price)}',
+          );
+        }
+      } else {
+        Get.showSnackbar(
+          const GetSnackBar(
+            message: 'Please select the product for checkout',
+            icon: Icon(Icons.warning_amber_outlined,
+                size: 20, color: MainColor.white),
+            duration: Duration(seconds: 2),
+          ),
+        );
+      }
+    }
   }
 }

@@ -1,12 +1,13 @@
 import 'package:e_commerce/configs/themes/main_colors.dart';
-import 'package:e_commerce/features/detail_product_screen/controllers/detail_product_controller.dart';
 import 'package:e_commerce/features/detail_product_screen/views/components/border_container_item.dart';
+import 'package:e_commerce/shared/global_models/product_model.dart';
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ReviewWidget extends StatelessWidget {
-  const ReviewWidget({super.key});
+  final ProductModel data;
+  const ReviewWidget({super.key, required this.data});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class ReviewWidget extends StatelessWidget {
               ),
               2.5.horizontalSpace,
               Text(
-                DetailProductController.to.productData.value!.rating.toString(),
+                data.rating.toString(),
                 style: SfTextStyles.fontMedium(
                   color: MainColor.black,
                   fontSize: 12.sp,
@@ -33,7 +34,7 @@ class ReviewWidget extends StatelessWidget {
               ),
               10.horizontalSpace,
               Text(
-                '${DetailProductController.to.productData.value!.totalReview} reviews',
+                '${data.totalReview} reviews',
                 style: SfTextStyles.fontMedium(
                   color: MainColor.darkGrey,
                   fontSize: 12.sp,
@@ -53,7 +54,7 @@ class ReviewWidget extends StatelessWidget {
               ),
               5.horizontalSpace,
               Text(
-                '${DetailProductController.to.productData.value!.goodReview.toInt()}%',
+                '${data.goodReview.toInt()}%',
                 style: SfTextStyles.fontMedium(
                   color: MainColor.black,
                   fontSize: 12.sp,
@@ -67,15 +68,15 @@ class ReviewWidget extends StatelessWidget {
           child: Row(
             children: [
               Icon(
-                Icons.contact_support,
+                Icons.inventory_2,
                 size: 18.r,
                 color: MainColor.darkGrey,
               ),
               2.5.horizontalSpace,
               Text(
-                DetailProductController.to.productData.value!.numberChat.toString(),
-                style: SfTextStyles.fontMedium(
-                  color: MainColor.black,
+                '${data.stock} stock',
+                style: SfTextStyles.fontRegular(
+                  color: MainColor.blackLight,
                   fontSize: 12.sp,
                 ),
               ),

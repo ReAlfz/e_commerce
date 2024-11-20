@@ -11,6 +11,8 @@ class SearchDataController extends GetxController {
 
   RxString filtered = ''.obs;
   RxList<ProductModel> listSearch = <ProductModel>[].obs;
+  TextEditingController textEditingController = TextEditingController();
+  FocusNode focusNode = FocusNode();
 
   RxList<ProductModel> get filteredList => (filtered.value.isNotEmpty)
       ? listSearch
@@ -24,7 +26,15 @@ class SearchDataController extends GetxController {
           .toList().obs
       : <ProductModel>[].obs;
 
-  FocusNode focusNode = FocusNode();
+  RxBool get searchState {
+    int index = listSearch.indexWhere(
+          (item) =>
+      item.title.toLowerCase().contains(filtered.value.toLowerCase()) ||
+          item.category.toLowerCase().contains(filtered.value.toLowerCase()),
+    );
+
+    return (index != -1) ? true.obs : false.obs;
+  }
 
   @override
   void onInit() {

@@ -21,7 +21,7 @@ class CartView extends StatelessWidget {
         height: 1.sh,
         width: 1.sw,
         margin: EdgeInsets.only(top: 8.r),
-        padding: EdgeInsets.fromLTRB(16.w, 24.h, 16.w, 16.h),
+        padding: EdgeInsets.fromLTRB(16.w, 24.h, 8.w, 16.h),
         decoration: BoxDecoration(
           color: MainColor.white,
           borderRadius: BorderRadius.vertical(
@@ -30,18 +30,26 @@ class CartView extends StatelessWidget {
         ),
         child: Column(
           children: [
-            const AllSelectWidget(),
-            const Expanded(
-              child: ListCartWidget(),
+            Padding(
+              padding: EdgeInsets.only(
+                right: 8.w,
+              ),
+              child: const AllSelectWidget(),
+            ),
+            Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: 8.w),
+                child: const ListCartWidget(),
+              ),
             ),
             const PriceWidget(),
             8.verticalSpace,
-            CustomButtonWidget(
-              title: (CartController.to.buttonEnabler.value)
-                  ? 'Checkout'
-                  : 'You need login to Continue',
-              enabler: CartController.to.buttonEnabler.value,
-              onTap: CartController.to.checkOut,
+            Padding(
+              padding: EdgeInsets.only(right: 8.w),
+              child: CustomButtonWidget(
+                title: 'Checkout',
+                onTap: CartController.to.checkOut,
+              ),
             ),
           ],
         ),

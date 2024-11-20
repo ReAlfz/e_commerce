@@ -5,6 +5,8 @@ import 'package:e_commerce/features/detail_order_screen/bindings/detail_order_bi
 import 'package:e_commerce/features/detail_order_screen/views/ui/detail_order_view.dart';
 import 'package:e_commerce/features/detail_product_screen/bindings/detail_product_binding.dart';
 import 'package:e_commerce/features/detail_product_screen/views/ui/detail_product_view.dart';
+import 'package:e_commerce/features/detail_voucher_screen/bindings/detail_voucher_binding.dart';
+import 'package:e_commerce/features/detail_voucher_screen/views/ui/detail_voucher_view.dart';
 import 'package:e_commerce/features/filter_list_category_view/bindings/filter_list_category_binding.dart';
 import 'package:e_commerce/features/filter_list_category_view/views/ui/filter_list_category_view.dart';
 import 'package:e_commerce/features/home_screen/bindings/category_binding.dart';
@@ -15,12 +17,12 @@ import 'package:e_commerce/features/navigation/bindings/navigation_binding.dart'
 import 'package:e_commerce/features/navigation/views/ui/navigation_view.dart';
 import 'package:e_commerce/features/search_data_screen/bindings/search_data_binding.dart';
 import 'package:e_commerce/features/search_data_screen/views/ui/search_data_view.dart';
-import 'package:e_commerce/features/sign_up/bindings/login_binding.dart';
-import 'package:e_commerce/features/sign_up/bindings/sign_up_binding.dart';
-import 'package:e_commerce/features/sign_up/views/ui/login_view.dart';
-import 'package:e_commerce/features/sign_up/views/ui/sign_up_view.dart';
+import 'package:e_commerce/features/sign_up/bindings/sign_binding.dart';
+import 'package:e_commerce/features/sign_up/views/ui/sign_view.dart';
 import 'package:e_commerce/features/splash_screen/bindings/splash_binding.dart';
 import 'package:e_commerce/features/splash_screen/views/ui/splash_view.dart';
+import 'package:e_commerce/features/voucher_screen/bindings/voucher_binding.dart';
+import 'package:e_commerce/features/voucher_screen/views/ui/voucher_view.dart';
 import 'package:get/get.dart';
 
 class MainPage {
@@ -68,23 +70,24 @@ class MainPage {
       transitionDuration: const Duration(milliseconds: 200),
     ),
     GetPage(
-      name: MainRoute.login,
-      page: () => const LoginView(),
-      binding: LoginBinding(),
-      transition: Transition.fadeIn,
-      transitionDuration: const Duration(milliseconds: 200),
-    ),
-    GetPage(
-      name: MainRoute.signUp,
-      page: () => const SignUpView(),
-      binding: SignUpBinding(),
-      transition: Transition.fadeIn,
-      transitionDuration: const Duration(milliseconds: 200),
+      name: MainRoute.sign,
+      page: () => const SignView(),
+      binding: SignBinding(),
     ),
     GetPage(
       name: MainRoute.detailOrder,
       page: () => const DetailOrderView(),
       binding: DetailOrderBinding(),
+    ),
+    GetPage(
+      name: MainRoute.voucher,
+      page: () => const VoucherView(),
+      binding: VoucherBinding(),
+    ),
+    GetPage(
+      name: MainRoute.voucherDetail,
+      page: () => const DetailVoucherView(),
+      binding: DetailVoucherBinding(),
     ),
   ];
 }

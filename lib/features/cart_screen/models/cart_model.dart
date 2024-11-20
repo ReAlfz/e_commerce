@@ -23,6 +23,8 @@ class CartModel {
   int quantity;
   @HiveField(8)
   int price;
+  @HiveField(9)
+  int stock;
 
   CartModel({
     required this.productId,
@@ -32,6 +34,7 @@ class CartModel {
     required this.quantity,
     required this.images,
     required this.product,
+    required this.stock,
     this.variantSwitch,
     this.variantColor,
   });

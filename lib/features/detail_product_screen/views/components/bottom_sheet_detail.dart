@@ -12,6 +12,7 @@ import 'package:intl/intl.dart';
 
 class BottomSheetDetail extends StatelessWidget {
   final ProductModel productModel;
+  final GlobalKey imageBottomSheetKey;
   final List<VariantModel>? color;
   final List<VariantModel>? switchOption;
 
@@ -19,7 +20,7 @@ class BottomSheetDetail extends StatelessWidget {
     super.key,
     this.color,
     this.switchOption,
-    required this.productModel,
+    required this.productModel, required this.imageBottomSheetKey,
   });
 
   @override
@@ -47,7 +48,7 @@ class BottomSheetDetail extends StatelessWidget {
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Container(
-                    key: DetailProductController.to.imageBottomSheetKey,
+                    key: imageBottomSheetKey,
                     width: 75.w,
                     padding: EdgeInsets.all(8.r),
                     decoration: BoxDecoration(
@@ -248,12 +249,9 @@ class BottomSheetDetail extends StatelessWidget {
           36.verticalSpace,
           CustomButtonWidget(
             title: 'Add to Cart',
-            enabler: true,
             onTap: () {
               DetailProductController.to.convertToCart();
-              DetailProductController.to.runAnimationCartNow(
-                DetailProductController.to.imageBottomSheetKey,
-              );
+              DetailProductController.to.runAnimationCartNow(imageBottomSheetKey);
               Get.back();
             },
           ),

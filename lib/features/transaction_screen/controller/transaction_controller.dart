@@ -27,13 +27,10 @@ class TransactionController extends GetxController {
       int newIndex = transactionList.indexWhere((item) => item.id_order == newData['id']);
       if (newIndex != -1) {
         transactionList[newIndex].status = newData['status'];
-        print(transactionList[newIndex].price);
         HiveService.saveListTransaction(transactionList);
         transactionList.refresh();
       }
     }
-    print(historyList[0].status);
-    print(historyList[1].status);
   }
 
   /// Filter List ///

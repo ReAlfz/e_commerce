@@ -71,7 +71,6 @@ class OrderSuccessDialog extends StatelessWidget {
             child: CustomButtonWidget(
               title: 'Continue',
               onTap: CartController.to.offAllRoute,
-              enabler: true,
             ),
           ),
         ],

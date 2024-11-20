@@ -4,8 +4,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class CartCheckBoxWidget extends StatelessWidget {
   final bool isChecked;
-  final ValueChanged<bool>onTap;
-  const CartCheckBoxWidget({super.key, required this.onTap, required this.isChecked});
+  final ValueChanged<bool> onTap;
+
+  const CartCheckBoxWidget({
+    super.key,
+    required this.onTap,
+    required this.isChecked,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,10 +32,11 @@ class CartCheckBoxWidget extends StatelessWidget {
         child: Center(
           child: isChecked
               ? const Icon(
-            Icons.check_rounded,
-            size: 18.0,
-            color: MainColor.white,
-          ) : null,
+                  Icons.check_rounded,
+                  size: 18.0,
+                  color: MainColor.white,
+                )
+              : null,
         ),
       ),
     );

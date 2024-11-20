@@ -8,19 +8,24 @@ class CustomTextField extends StatelessWidget {
   final bool isObscure;
   final bool isRequired;
   final String requiredText;
+  final String? specificString;
+  final String? requiredSpecificString;
   final TextInputType keyboardType;
   final TextEditingController controller;
   final Widget? suffixIcon;
 
-  const CustomTextField(
-      {super.key,
-      required this.label,
-      required this.isObscure,
-      required this.isRequired,
-      required this.requiredText,
-      required this.keyboardType,
-      required this.controller,
-      this.suffixIcon});
+  const CustomTextField({
+    super.key,
+    required this.label,
+    required this.isObscure,
+    required this.isRequired,
+    required this.requiredText,
+    required this.keyboardType,
+    required this.controller,
+    this.suffixIcon,
+    this.specificString,
+    this.requiredSpecificString,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +52,12 @@ class CustomTextField extends StatelessWidget {
             if (isRequired) {
               String trim = value!.trim();
               if (trim.isEmpty) return requiredText;
+            }
+
+            if (specificString != null && requiredSpecificString != null) {
+              if (!value!.contains(specificString!)) {
+                return requiredSpecificString;
+              }
             }
 
             return null;

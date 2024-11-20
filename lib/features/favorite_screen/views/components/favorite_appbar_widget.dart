@@ -57,7 +57,7 @@ class FavoriteAppbarWidget extends StatelessWidget implements PreferredSizeWidge
                   ),
                   filled: true,
                   fillColor: MainColor.grey,
-                  hintText: 'Search the entire shop',
+                  hintText: 'Search your favorite',
                   hintStyle: SfTextStyles.fontRegular(
                     color: Colors.grey[400]!,
                     fontSize: 14.sp,

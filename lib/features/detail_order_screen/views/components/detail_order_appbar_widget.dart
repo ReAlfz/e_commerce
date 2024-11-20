@@ -4,7 +4,6 @@ import 'package:e_commerce/features/detail_order_screen/controllers/detail_order
 import 'package:e_commerce/shared/styles/sf_textstyle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart';
 
 class DetailOrderAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   const DetailOrderAppbarWidget({super.key});
@@ -84,5 +83,4 @@ class DetailOrderAppbarWidget extends StatelessWidget implements PreferredSizeWi
 
   @override
   Size get preferredSize => Size.fromHeight(0.075.sh);
-
 }
